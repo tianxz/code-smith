@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/information_schema?characterEncoding=utf-8
+    target-data-base: code.smith
+    username: root
+    password: root
+server:
+  port: 9090
+logging:
+  pattern:
+    level: debug

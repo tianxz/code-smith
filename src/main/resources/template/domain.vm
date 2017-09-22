@@ -1,0 +1,46 @@
+#parse("warn-java.vm")
+
+package ${packageInfo.toString()};
+
+#foreach($import in $imports)
+import $import;
+#end
+
+/**
+ * Created by ${authorInfo.name} on ${dateInfo.now}.
+ */
+public class ${classInfo.name} {
+##生成字段
+#foreach($field in $classInfo.fields)
+##判断字段字段在数据库中是否有描述
+#if($field.javaType.equals("JDateTime"))
+    @JsonDeserialize(using = JDateTimeDeserializer.class)
+    @JsonSerialize(using = JDateTimeSerializer.class)
+#end
+    private $field.javaType $field.name;    #if($field.describe)//$field.describe#end
+
+#end
+
+##生成get/set
+#foreach($field in $classInfo.fields)
+##判断字段字段在数据库中是否有描述
+#if($field.describe)
+    /**
+    * 设置 $field.describe
+    */
+#end
+    public $field.javaType get${field.nameFirstUpper}() {
+        return $field.name;
+    }
+##判断字段字段在数据库中是否有描述
+#if($field.describe)
+    /**
+    * 获取 $field.describe
+    */
+#end
+    public void set${field.nameFirstUpper}($field.javaType $field.name) {
+        this.$field.name = $field.name;
+    }
+
+#end
+}
