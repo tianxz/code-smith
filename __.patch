@@ -1,0 +1,15 @@
+Index: src/main/groovy/com/icss/codesmith/database/dao/MysqlDataBaseDao.groovy
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/groovy/com/icss/codesmith/database/dao/MysqlDataBaseDao.groovy	(revision 6196f3cef51f50d4ec96706eb2f16858e2025207)
++++ src/main/groovy/com/icss/codesmith/database/dao/MysqlDataBaseDao.groovy	(revision )
+@@ -34,5 +34,5 @@
+      * @return
+      */
+     @Select("select * from columns where table_schema = #{arg0} and table_name = #{arg1}")
+-    List<Column> getColumnByTable(String arg0, String arg1);
++    List<Column> getColumnByTable(String arg0, String arg1)
+ }
+\ No newline at end of file

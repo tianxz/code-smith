@@ -34,5 +34,5 @@ interface MysqlDataBaseDao {
      * @return
      */
     @Select("select * from columns where table_schema = #{arg0} and table_name = #{arg1}")
-    List<Column> getColumnByTable(String arg0, String arg1);
+    List<Column> getColumnByTable(String arg0, String arg1)
 }
