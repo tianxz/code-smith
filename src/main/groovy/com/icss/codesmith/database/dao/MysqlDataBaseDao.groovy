@@ -16,7 +16,7 @@ interface MysqlDataBaseDao {
      * @return
      */
     @Select("select * from tables where table_schema = #{arg0}")
-    List<Table> getAllTable(String arg0);
+    List<Table> getAllTable(String arg0)
 
     /**
      * 获取指定表
@@ -25,7 +25,7 @@ interface MysqlDataBaseDao {
      * @return
      */
     @Select("select * from tables where table_schema = #{arg0} and table_name = #{arg1}")
-    Table getTable(String arg0, String age1);
+    Table getTable(String arg0, String age1)
 
     /**
      * 获取指定表的所有列
