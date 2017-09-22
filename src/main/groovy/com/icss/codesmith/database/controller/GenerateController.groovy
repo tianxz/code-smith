@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/generate")
 class GenerateController {
     @Autowired
-    GenerateTarget generateTarget;
+    GenerateTarget generateTarget
     @Autowired
-    UserDataSourceUtil httpSession;
+    UserDataSourceUtil httpSession
 
     @RequestMapping(value = "/domain/{tableName}", method = RequestMethod.POST)
     @ResponseBody
