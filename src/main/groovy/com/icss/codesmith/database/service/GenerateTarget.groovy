@@ -16,28 +16,34 @@ import org.springframework.stereotype.Service
 @Service
 class GenerateTarget {
     @Autowired
-    ProcessTable processTable
+    ProcessTable            processTable
     @Autowired
     DbMeta2TemplateInfoUtil dbMeta2TemplateInfoUtil
     @Autowired
-    GenerateUtil generateUtil
+    GenerateUtil            generateUtil
 
     /**
      * 根据指定表生成Domain
      * @param dbName
      * @param tableName
      */
-    String generateDomain(String dbName, String tableName, GenerateParams generateParams) {
-        String vmName = "domain"
-        def table = processTable.getTable(dbName, tableName);
+    String generateDomain( String ftlName, String dbName, String tableName, GenerateParams generateParams ) {
+        String vmName = ftlName
+        def table = processTable.getTable( dbName, tableName )
 
-        def classInfo = dbMeta2TemplateInfoUtil.mysqlTableMeta2ClassInfo(table)
+        def classInfo = dbMeta2TemplateInfoUtil.mysqlTableMeta2ClassInfo( table )
         def authorInfo = new AuthorInfo()
         def dateInfo = new DateInfo()
-        def imports = new ImportList(classInfo.fields)
+        def imports = new ImportList( classInfo.fields )
 
-        def param = ["classInfo": classInfo, "authorInfo": authorInfo, "dateInfo": dateInfo, "generateParams": generateParams, "imports": imports]
-        String result = generateUtil.generateString(param, vmName)
+        def param = [
+                "generateParams": generateParams,
+                "classInfo"     : classInfo,
+                "authorInfo"    : authorInfo,
+                "dateInfo"      : dateInfo,
+                "imports"       : imports
+        ]
+        String result = generateUtil.generateString( param, vmName )
 
         return result
     }

@@ -1,19 +1,16 @@
 package com.icss.codesmith.template.util
-
-import jodd.util.StringUtil
-
 /**
  * Created by XizeTian on 2016/12/19.
  */
 class WordUtil {
-    private String word;
+    private String word
 
     private WordUtil() {}
 
-    static inValue(String word) {
-        WordUtil wordUtil = new WordUtil();
-        wordUtil.word = word;
-        return wordUtil;
+    static inValue( String word ) {
+        WordUtil wordUtil = new WordUtil()
+        wordUtil.word = word
+        return wordUtil
     }
 
     /**
@@ -22,8 +19,8 @@ class WordUtil {
      * @return
      */
     WordUtil firstToLower() {
-        word = word.substring(0, 1).toLowerCase() + word.substring(1)
-        return this;
+        word = word.substring( 0, 1 ).toLowerCase() + word.substring( 1 )
+        return this
     }
 
     /**
@@ -32,8 +29,13 @@ class WordUtil {
      * @return
      */
     WordUtil firstToUp() {
-        word = word.substring(0, 1).toUpperCase() + word.substring(1)
-        return this;
+        word = word.substring( 0, 1 ).toUpperCase() + word.substring( 1 )
+        return this
+    }
+
+    WordUtil toUpper() {
+        word = word.toUpperCase()
+        return this
     }
 
     /**
@@ -42,16 +44,29 @@ class WordUtil {
      * @return
      */
     WordUtil UnderlineField2HumpField() {
-        word = new UnderlineField2HumpField(word).get();
-        return this;
+        def targetValue = ''
+        boolean nextIsToUpper = false
+        for ( ch in word ) {
+            def tmpCh = ch
+            if ( tmpCh == "_" ) {
+                nextIsToUpper = true
+                continue
+            } else if ( nextIsToUpper ) {
+                tmpCh = ch.toUpperCase()
+                nextIsToUpper = false
+            }
+            targetValue += tmpCh
+        }
+        word = targetValue
+        return this
     }
 
     String outValue() {
-        return word;
+        return word
     }
 
     @Override
     String toString() {
-        return word;
+        return word
     }
 }
