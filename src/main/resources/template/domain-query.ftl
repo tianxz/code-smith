@@ -10,7 +10,7 @@ public class ${classInfo.name}QueryMap extends HashMap<String, SqlQuery> {
 
     public ${classInfo.name}QueryMap() {
 <#list classInfo.fields as field>
-        this.put(${classInfo.name}Mate.${field.sqlName}_FIELD_NAME, new SqlQuery("${field.name}"));
+        this.put(${classInfo.name}Meta.${field.sqlName}_FIELD_NAME, new SqlQuery("${field.name}"));
 </#list>
     }
 
@@ -41,7 +41,7 @@ public class ${classInfo.name}QueryMap extends HashMap<String, SqlQuery> {
      */
     </#if>
     public SqlQuery getSqlQueryFor${field.name?cap_first}() {
-        return this.get(${classInfo.name}Mate.${field.sqlName}_FIELD_NAME);
+        return this.get(${classInfo.name}Meta.${field.sqlName}_FIELD_NAME);
     }
 
 </#list>

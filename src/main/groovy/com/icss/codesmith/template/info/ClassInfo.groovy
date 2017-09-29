@@ -5,5 +5,6 @@ package com.icss.codesmith.template.info
  */
 class ClassInfo extends InfoBase {
     final List<FieldInfo> fields = new ArrayList<>()
-          String          comment
+    String sqlName
+    String comment
 }

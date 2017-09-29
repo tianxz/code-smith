@@ -5,4 +5,7 @@ package com.icss.codesmith.template.info
  */
 class GenerateParams {
     String packageInfo
+    String domainPackageInfo
+    String daoPackageInfo
+    String limitPackageInfo
 }

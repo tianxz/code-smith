@@ -14,7 +14,7 @@ public class ${classInfo.name}UpdateMap extends HashMap<String, SqlUpdate> {
 
     public ${classInfo.name}UpdateMap() {
 <#list classInfo.fields as field>
-        this.put(${classInfo.name}Mate.${field.sqlName}_FIELD_NAME, new SqlUpdate("${field.name}", "${field.sqlName}"));
+        this.put(${classInfo.name}Meta.${field.sqlName}_FIELD_NAME, new SqlUpdate("${field.name}", "${field.sqlName}"));
 </#list>
     }
 
@@ -45,7 +45,7 @@ public class ${classInfo.name}UpdateMap extends HashMap<String, SqlUpdate> {
      */
     </#if>
     public SqlUpdate getSqlUpdateFor${field.name?cap_first}() {
-        return this.get(${classInfo.name}Mate.${field.sqlName}_FIELD_NAME);
+        return this.get(${classInfo.name}Meta.${field.sqlName}_FIELD_NAME);
     }
 
 </#list>

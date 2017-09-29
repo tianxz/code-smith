@@ -26,46 +26,55 @@ import org.springframework.web.bind.annotation.*
  *  此代码由代码生成工具生成，请不要在此文件上做任何修改。如需扩展，请使用组合或继承方式实现。
  */
 @Controller
-@RequestMapping( "/generate" )
+@RequestMapping("/generate")
 class GenerateController {
     @Autowired
-    GenerateTarget     generateTarget
+    GenerateTarget generateTarget
     @Autowired
     UserDataSourceUtil httpSession
 
-    @RequestMapping( value = "/domain/{tableName}", method = RequestMethod.POST )
+    @RequestMapping(value = "/domain/{tableName}", method = RequestMethod.POST)
     @ResponseBody
-    String domain( @PathVariable String tableName,
-                   @RequestBody GenerateParams generateParams ) {
+    String domain(@PathVariable String tableName,
+                  @RequestBody GenerateParams generateParams) {
         DataBaseConf dbConf = httpSession.getDataBaseConf()
-        def result = generateTarget.generateDomain( "domain", dbConf.name, tableName, generateParams )
+        def result = generateTarget.generateDomain("domain", dbConf.name, tableName, generateParams)
         return result
     }
 
-    @RequestMapping( value = "/domain-meta/{tableName}", method = RequestMethod.POST )
+    @RequestMapping(value = "/domain-meta/{tableName}", method = RequestMethod.POST)
     @ResponseBody
-    String domainMeta( @PathVariable String tableName,
-                       @RequestBody GenerateParams generateParams ) {
+    String domainMeta(@PathVariable String tableName,
+                      @RequestBody GenerateParams generateParams) {
         DataBaseConf dbConf = httpSession.getDataBaseConf()
-        def result = generateTarget.generateDomain( 'domain-meta', dbConf.name, tableName, generateParams )
+        def result = generateTarget.generateDomain('domain-meta', dbConf.name, tableName, generateParams)
         return result
     }
 
-    @RequestMapping( value = "/domain-sql-update/{tableName}", method = RequestMethod.POST )
+    @RequestMapping(value = "/domain-sql-update/{tableName}", method = RequestMethod.POST)
     @ResponseBody
-    String domainSqlUpdate( @PathVariable String tableName,
-                            @RequestBody GenerateParams generateParams ) {
+    String domainSqlUpdate(@PathVariable String tableName,
+                           @RequestBody GenerateParams generateParams) {
         DataBaseConf dbConf = httpSession.getDataBaseConf()
-        def result = generateTarget.generateDomain( 'domain-update', dbConf.name, tableName, generateParams )
+        def result = generateTarget.generateDomain('domain-update', dbConf.name, tableName, generateParams)
         return result
     }
 
-    @RequestMapping( value = "/domain-sql-query/{tableName}", method = RequestMethod.POST )
+    @RequestMapping(value = "/domain-sql-query/{tableName}", method = RequestMethod.POST)
     @ResponseBody
-    String domainSqlQuery( @PathVariable String tableName,
-                           @RequestBody GenerateParams generateParams ) {
+    String domainSqlQuery(@PathVariable String tableName,
+                          @RequestBody GenerateParams generateParams) {
         DataBaseConf dbConf = httpSession.getDataBaseConf()
-        def result = generateTarget.generateDomain( 'domain-query', dbConf.name, tableName, generateParams )
+        def result = generateTarget.generateDomain('domain-query', dbConf.name, tableName, generateParams)
+        return result
+    }
+
+    @RequestMapping(value = "/mapper/{tableName}", method = RequestMethod.POST)
+    @ResponseBody
+    String mapper(@PathVariable String tableName,
+                  @RequestBody GenerateParams generateParams) {
+        DataBaseConf dbConf = httpSession.getDataBaseConf()
+        def result = generateTarget.generateDomain('mapper', dbConf.name, tableName, generateParams)
         return result
     }
 }
