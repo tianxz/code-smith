@@ -10,4 +10,5 @@ class DataBaseConf {
     String loginName
     String loginPassword
     DataBaseType type
+    Map<String, String> tableMapping
 }

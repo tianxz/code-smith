@@ -21,35 +21,37 @@
     <sql id="where">
         <where>
             <foreach collection="sqlQueries" item="sqlQuery">
-                <if test="sqlQuery.operator.toString() == 'EQ'">
-                    AND ${'$'}${'{'}${'sqlQuery.sqlName'}${'}'} = ${'#'}${'{'}${'sqlQuery.value'}${'}'}
-                </if>
-                <if test="sqlQuery.operator.toString() == 'NEQ'">
-                    AND ${'$'}${'{'}${'sqlQuery.sqlName'}${'}'} &lt;&gt; ${'#'}${'{'}${'sqlQuery.value'}${'}'}
-                </if>
-                <if test="sqlQuery.operator.toString() == 'IN'">
-                    AND ${'$'}${'{'}${'sqlQuery.sqlName'}${'}'} IN
-                    <foreach collection="sqlQuery.multiValue" item="value" open="(" close=")" separator=",">
+                <if test="sqlQuery.isInclude">
+                    <if test="sqlQuery.operator.toString() == 'EQ'">
+                        AND ${'$'}${'{'}${'sqlQuery.sqlName'}${'}'} = ${'#'}${'{'}${'sqlQuery.value'}${'}'}
+                    </if>
+                    <if test="sqlQuery.operator.toString() == 'NEQ'">
+                        AND ${'$'}${'{'}${'sqlQuery.sqlName'}${'}'} &lt;&gt; ${'#'}${'{'}${'sqlQuery.value'}${'}'}
+                    </if>
+                    <if test="sqlQuery.operator.toString() == 'IN'">
+                        AND ${'$'}${'{'}${'sqlQuery.sqlName'}${'}'} IN
+                        <foreach collection="sqlQuery.multiValue" item="value" open="(" close=")" separator=",">
                         ${'#'}${'{'}${'value'}${'}'}
-                    </foreach>
-                </if>
-                <if test="sqlQuery.operator.toString() == 'LIKE'">
-                    <bind name="_param1" value="'%' + sqlQuery.value + '%'"/>
-                    AND ${'$'}${'{'}${'sqlQuery.sqlName'}${'}'} LIKE ${'#'}${'{'}${'_param1'}${'}'}
-                </if>
-                <if test="sqlQuery.operator.toString() == 'AND'">
-                    AND (${'$'}${'{'}${'sqlQuery.sqlName'}${'}'} &amp; ${'#'}${'{'}${'sqlQuery.value'}${'}'} = ${'#'}${'{'}${'sqlQuery.value'}${'}'})
-                </if>
-                <if test="sqlQuery.operator.toString() == 'BETWEEN'">
-                    <!--X >= value and X <= value-->
-                    <foreach collection="sqlQuery.multiValue" item="value" index="index">
-                        <if test="index == 0">
-                            AND ${'$'}${'{'}${'sqlQuery.sqlName'}${'}'} &gt;= ${'#'}${'{'}${'value'}${'}'}
-                        </if>
-                        <if test="index == 1">
-                            AND ${'$'}${'{'}${'sqlQuery.sqlName'}${'}'} &lt;= ${'#'}${'{'}${'value'}${'}'}
-                        </if>
-                    </foreach>
+                        </foreach>
+                    </if>
+                    <if test="sqlQuery.operator.toString() == 'LIKE'">
+                        <bind name="_param1" value="'%' + sqlQuery.value + '%'"/>
+                        AND ${'$'}${'{'}${'sqlQuery.sqlName'}${'}'} LIKE ${'#'}${'{'}${'_param1'}${'}'}
+                    </if>
+                    <if test="sqlQuery.operator.toString() == 'AND'">
+                        AND (${'$'}${'{'}${'sqlQuery.sqlName'}${'}'} &amp; ${'#'}${'{'}${'sqlQuery.value'}${'}'} = ${'#'}${'{'}${'sqlQuery.value'}${'}'})
+                    </if>
+                    <if test="sqlQuery.operator.toString() == 'BETWEEN'">
+                        <!--X >= value and X <= value-->
+                        <foreach collection="sqlQuery.multiValue" item="value" index="index">
+                            <if test="index == 0">
+                                AND ${'$'}${'{'}${'sqlQuery.sqlName'}${'}'} &gt;= ${'#'}${'{'}${'value'}${'}'}
+                            </if>
+                            <if test="index == 1">
+                                AND ${'$'}${'{'}${'sqlQuery.sqlName'}${'}'} &lt;= ${'#'}${'{'}${'value'}${'}'}
+                            </if>
+                        </foreach>
+                    </if>
                 </if>
             </foreach>
         </where>
@@ -59,7 +61,7 @@
     <select id="queryTotal" resultType="long">
         SELECT
         <include refid="total"/>
-        FROM `USER_INFO`
+        FROM `${classInfo.sqlName}`
         <include refid="where"/>
     </select>
 
@@ -68,12 +70,12 @@
         SELECT <include refid="columnNames"/>
         FROM `${classInfo.sqlName}`
         <where>
-            ID = ${'#'}${'{'}${'uuid'}${'}'}
+            UUID = ${'#'}${'{'}${'uuid'}${'}'}
         </where>
     </select>
 
     <#if classInfo.comment??><!-- 使用分页查询所有 ${classInfo.comment} --></#if>
-    <select id="queryAll" parameterType="${generateParams.limitPackageInfo}" resultType="${generateParams.domainPackageInfo}.${classInfo.name}">
+    <select id="queryAll" resultType="${generateParams.domainPackageInfo}.${classInfo.name}">
         SELECT <include refid="columnNames"/>
         FROM `${classInfo.sqlName}`
         <include refid="limit"/>
@@ -83,7 +85,7 @@
     <select id="query" resultType="${generateParams.domainPackageInfo}.${classInfo.name}">
         SELECT
         <include refid="columnNames"/>
-        FROM `USER_INFO`
+        FROM `${classInfo.sqlName}`
         <include refid="where"/>
         <include refid="limit"/>
     </select>
@@ -98,14 +100,14 @@
     <update id="update${classInfo.name}">
         UPDATE `${classInfo.sqlName}`
         SET
-        <foreach collection="sqlUpdate" separator="," item="item">
+        <foreach collection="sqlUpdates" separator="," item="item">
             <bind name="_param1" value="item.sqlName" />
             <if test="item.isInclude">
                 ${'$'}${'{'}${'_param1'}${'}'} = ${'#'}${'{'}${'item.value'}${'}'}
             </if>
         </foreach>
         <where>
-            ID = ${'#'}${'{'}${'uuid'}${'}'}
+            UUID = ${'#'}${'{'}${'uuid'}${'}'}
         </where>
     </update>
 
@@ -113,7 +115,7 @@
     <delete id="delete${classInfo.name}" parameterType="long">
         DELETE FROM `${classInfo.sqlName}`
         <where>
-            ID = ${'#'}${'{'}${'uuid'}${'}'}
+            UUID = ${'#'}${'{'}${'uuid'}${'}'}
         </where>
     </delete>
 </mapper>

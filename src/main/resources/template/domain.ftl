@@ -35,8 +35,9 @@ public class ${classInfo.name} {
      * 设置 ${field.describe}
      */
     </#if>
-    public void set${field.name?cap_first}(${field.javaType} ${field.name}) {
+    public ${classInfo.name} set${field.name?cap_first}(${field.javaType} ${field.name}) {
         this.${field.name} = ${field.name};
+        return this;
     }
 
 </#list>

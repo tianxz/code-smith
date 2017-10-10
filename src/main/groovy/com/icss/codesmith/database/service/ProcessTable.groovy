@@ -44,7 +44,7 @@ class ProcessTable {
      * @return
      */
     Table getTable(String dbName, String tableName) {
-        def table = dao.getTable(dbName, tableName);
+        def table = dao.getTable(dbName, tableName)
         def columns = getColumns(dbName, table.tableName)
         table.columns = columns
         return table

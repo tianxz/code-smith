@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 
+import javax.servlet.http.HttpSession
+
 /**
  * Created by XizeTian on 2016/12/19.
  */
@@ -23,6 +25,8 @@ class IndexController {
     ProcessTable processTable
     @Autowired
     UserDataSourceUtil userDbSourceUtil
+    @Autowired
+    HttpSession httpSession
 
     /**
      * 获取所有表, 表中包含列
@@ -65,9 +69,10 @@ class IndexController {
      */
     @RequestMapping(value = "/data-source-conf", method = RequestMethod.PUT)
     @ResponseBody
-    Object dataSourceConf(@RequestBody DataBaseConf dbConf) {
+    void dataSourceConf(@RequestBody DataBaseConf dbConf) {
         userDbSourceUtil.dataSource = userDbSourceUtil.buildDataSource(dbConf)
         userDbSourceUtil.dataBaseConf = dbConf
-        return null
+
+        httpSession.setAttribute('tableMapping', dbConf.tableMapping)
     }
 }
