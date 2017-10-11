@@ -7,9 +7,9 @@ import com.icss.codesmith.utils.PropertiesUtil
  */
 class ImportList extends ArrayList<String> {
     ImportList(List<FieldInfo> fs) {
-        def prop = PropertiesUtil.me().getPackageProp();
+        def prop = PropertiesUtil.me().getPackageProp()
         fs.each {
-            def value = prop.getProperty(it.javaType);
+            def value = prop.getProperty(it.javaType)
             if (value != null && !contains(value)) {
                 String[] sts = value.split(',')
                 for (s in sts) {

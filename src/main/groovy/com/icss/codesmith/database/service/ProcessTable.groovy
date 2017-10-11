@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service
 @Service
 class ProcessTable {
     @Autowired
-    MysqlDataBaseDao dao;
+    MysqlDataBaseDao dao
 
     /**
      * 获取指定数据库的所有表, 表中包含列
@@ -20,12 +20,12 @@ class ProcessTable {
      * @return
      */
     List<Table> getTabColumn(String dbName) {
-        def tables = getTabs(dbName);
+        def tables = getTabs(dbName)
         for (table in tables) {
             def columns = getColumns(dbName, table.tableName)
             table.columns = columns
         }
-        return tables;
+        return tables
     }
 
     /**
@@ -33,8 +33,8 @@ class ProcessTable {
      * @return
      */
     List<Table> getTabs(String dbName) {
-        def tables = dao.getAllTable(dbName);
-        return tables;
+        def tables = dao.getAllTable(dbName)
+        return tables
     }
 
     /**
@@ -57,7 +57,7 @@ class ProcessTable {
      * @return
      */
     List<Column> getColumns(String dbName, String tableName) {
-        def columns = dao.getColumnByTable(dbName, tableName);
-        return columns;
+        def columns = dao.getColumnByTable(dbName, tableName)
+        return columns
     }
 }
