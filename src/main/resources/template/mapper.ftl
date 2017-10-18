@@ -11,7 +11,9 @@
     </sql>
 
     <sql id="limit">
-        LIMIT ${'#'}${'{'}${'limit.size'}${'}'} OFFSET ${'#'}${'{'}${'limit.offset'}${'}'}
+        <if test="limit != null">
+            LIMIT ${'#'}${'{'}${'limit.size'}${'}'} OFFSET ${'#'}${'{'}${'limit.offset'}${'}'}
+        </if>
     </sql>
 
     <sql id="total">
