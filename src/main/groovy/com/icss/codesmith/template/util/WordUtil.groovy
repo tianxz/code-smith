@@ -7,7 +7,7 @@ class WordUtil {
 
     private WordUtil() {}
 
-    static inValue( String word ) {
+    static inValue(String word) {
         WordUtil wordUtil = new WordUtil()
         wordUtil.word = word
         return wordUtil
@@ -19,7 +19,7 @@ class WordUtil {
      * @return
      */
     WordUtil firstToLower() {
-        word = word.substring( 0, 1 ).toLowerCase() + word.substring( 1 )
+        word = word.substring(0, 1).toLowerCase() + word.substring(1)
         return this
     }
 
@@ -29,10 +29,14 @@ class WordUtil {
      * @return
      */
     WordUtil firstToUp() {
-        word = word.substring( 0, 1 ).toUpperCase() + word.substring( 1 )
+        word = word.substring(0, 1).toUpperCase() + word.substring(1)
         return this
     }
 
+    /**
+     * 单词转换大写
+     * @return
+     */
     WordUtil toUpper() {
         word = word.toUpperCase()
         return this
@@ -46,12 +50,12 @@ class WordUtil {
     WordUtil UnderlineField2HumpField() {
         def targetValue = ''
         boolean nextIsToUpper = false
-        for ( ch in word ) {
+        for (ch in word) {
             def tmpCh = ch
-            if ( tmpCh == "_" ) {
+            if (tmpCh == "_") {
                 nextIsToUpper = true
                 continue
-            } else if ( nextIsToUpper ) {
+            } else if (nextIsToUpper) {
                 tmpCh = ch.toUpperCase()
                 nextIsToUpper = false
             }
