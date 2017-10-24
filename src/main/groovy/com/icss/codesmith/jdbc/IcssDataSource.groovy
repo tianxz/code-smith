@@ -23,10 +23,8 @@ class IcssDataSource extends AbstractRoutingDataSource {
 
     @Override
     protected Object determineCurrentLookupKey() {
-        String dbId = "USER-DB-${userDataSourceUtil.sessionId}"
-        if (!dataSources.containsKey(dbId)) {
-            dataSources.put(dbId, userDataSourceUtil.getDataSource())
-        }
+        String dbId = "USER:DB:${userDataSourceUtil.sessionId}"
+        dataSources.put(dbId, userDataSourceUtil.getDataSource())
         return dbId
     }
 

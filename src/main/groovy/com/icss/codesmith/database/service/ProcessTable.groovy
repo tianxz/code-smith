@@ -6,6 +6,8 @@ import com.icss.codesmith.database.meta.Table
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
+import javax.servlet.http.HttpSession
+
 /**
  * Created by XizeTian on 2016/12/16.
  */
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Service
 class ProcessTable {
     @Autowired
     MysqlDataBaseDao dao
+    @Autowired
+    HttpSession httpSession
 
     /**
      * 获取指定数据库的所有表, 表中包含列
@@ -44,8 +48,16 @@ class ProcessTable {
      * @return
      */
     Table getTable(String dbName, String tableName) {
+        def sessionTableMapping = httpSession.getAttribute('USER:TABLE:MAPPING')
+
         def table = dao.getTable(dbName, tableName)
         def columns = getColumns(dbName, table.tableName)
+        if (sessionTableMapping) {
+            def tableMapping = (Map) sessionTableMapping
+            if (tableMapping.containsKey(table.tableName)) {
+                table.customerName = tableMapping.get(table.tableName)
+            }
+        }
         table.columns = columns
         return table
     }

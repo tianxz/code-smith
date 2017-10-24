@@ -8,9 +8,17 @@ class WordUtil {
     private WordUtil() {}
 
     static inValue(String word) {
-        WordUtil wordUtil = new WordUtil()
-        wordUtil.word = word
-        return wordUtil
+        return new WordUtil().inVal(word)
+    }
+
+    WordUtil inVal(String word) {
+        this.word = word
+        return this
+    }
+
+    WordUtil toLower() {
+        word = word.toLowerCase()
+        return this
     }
 
     /**
@@ -66,6 +74,10 @@ class WordUtil {
     }
 
     String outValue() {
+        return word
+    }
+
+    String outVal() {
         return word
     }
 

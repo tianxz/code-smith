@@ -92,6 +92,14 @@
         <include refid="limit"/>
     </select>
 
+	<#if classInfo.comment??><!-- 动态查询单个 ${classInfo.comment} --></#if>
+    <select id="querySingle" resultType="${generateParams.domainPackageInfo}.${classInfo.name}">
+        SELECT
+        <include refid="columnNames"/>
+        FROM `${classInfo.sqlName}`
+        <include refid="where"/>
+    </select>
+
     <#if classInfo.comment??><!-- 新增 ${classInfo.comment} --></#if>
     <insert id="insert${classInfo.name}" parameterType="${generateParams.domainPackageInfo}.${classInfo.name}">
         INSERT INTO `${classInfo.sqlName}`(<include refid="columnNames"/>)

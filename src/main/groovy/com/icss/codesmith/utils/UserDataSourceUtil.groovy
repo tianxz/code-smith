@@ -82,8 +82,8 @@ class UserDataSourceUtil {
      */
     DataSource buildDataSource(DataBaseConf dataBase) {
         org.apache.tomcat.jdbc.pool.DataSource dataSource = new org.apache.tomcat.jdbc.pool.DataSource()
-        dataSource.driverClassName = dataBase.type.driver
-        dataSource.url = dataBase.type.getUrl(dataBase.ipAddress, dataBase.port)
+        dataSource.driverClassName = dataBase.type.getUrl(dataBase.ipAddress, dataBase.port).driver
+        dataSource.url = dataBase.type.getUrl(dataBase.ipAddress, dataBase.port).value
         dataSource.username = dataBase.loginName
         dataSource.password = dataBase.loginPassword
         dataSource.maxActive = 8

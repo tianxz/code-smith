@@ -5,6 +5,7 @@ package com.icss.codesmith.database.meta
  */
 class Table {
     String tableName
+    String customerName
     String tableComment
     List<Column> columns
 }

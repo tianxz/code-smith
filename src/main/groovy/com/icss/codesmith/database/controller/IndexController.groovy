@@ -73,6 +73,6 @@ class IndexController {
         userDbSourceUtil.dataSource = userDbSourceUtil.buildDataSource(dbConf)
         userDbSourceUtil.dataBaseConf = dbConf
 
-        httpSession.setAttribute('tableMapping', dbConf.tableMapping)
+        httpSession.setAttribute('USER:TABLE:MAPPING', dbConf.tableMapping)
     }
 }

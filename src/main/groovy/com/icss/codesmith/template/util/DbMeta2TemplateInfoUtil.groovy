@@ -18,12 +18,17 @@ import javax.servlet.http.HttpSession
 class DbMeta2TemplateInfoUtil {
     @Autowired
     PropertiesUtil propUtil
-    @Autowired
-    HttpSession httpSession
 
     ClassInfo mysqlTableMeta2ClassInfo(Table table) {
         ClassInfo classInfo = new ClassInfo()
-        classInfo.name = WordUtil.inValue(this.getClassInfoName(table.tableName)).UnderlineField2HumpField().firstToUp().outValue()
+
+        classInfo.name = WordUtil
+                .inValue(table.customerName ? table.customerName : table.tableName)
+                .toLower()
+                .UnderlineField2HumpField()
+                .firstToUp()
+                .outValue()
+
         classInfo.sqlName = table.tableName.toUpperCase()
         for (column in table.columns) {
             FieldInfo fieldInfo = new FieldInfo()
@@ -40,16 +45,5 @@ class DbMeta2TemplateInfoUtil {
             classInfo.comment = table.tableComment
         }
         return classInfo
-    }
-
-    String getClassInfoName(String tableName) {
-        String className = tableName
-        if (httpSession.getAttribute('tableMapping') instanceof Map) {
-            Map<String, Object> map = httpSession.getAttribute('tableMapping')
-            if (map.containsKey(tableName)) {
-                className = map.get(tableName)
-            }
-        }
-        return className
     }
 }
