@@ -1,7 +1,9 @@
 package com.icss.codesmith.database.controller
 
 import com.icss.codesmith.database.domain.DataBaseConf
-import com.icss.codesmith.database.service.GenerateTarget
+import com.icss.codesmith.database.domain.OneKeyConf
+import com.icss.codesmith.database.service.GenerateService
+import com.icss.codesmith.exception.IcssException
 import com.icss.codesmith.template.info.GenerateParams
 import com.icss.codesmith.utils.UserDataSourceUtil
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/generate")
 class GenerateController {
     @Autowired
-    GenerateTarget generateTarget
+    GenerateService    generateTarget
     @Autowired
     UserDataSourceUtil httpSession
 
@@ -24,7 +26,7 @@ class GenerateController {
     String domain(@PathVariable String tableName,
                   @RequestBody GenerateParams generateParams) {
         DataBaseConf dbConf = httpSession.getDataBaseConf()
-        def result = generateTarget.generateDomain("domain", dbConf.name, tableName, generateParams)
+        def result = generateTarget.generateCode("domain", dbConf.name, tableName, generateParams)
         return result
     }
 
@@ -33,7 +35,7 @@ class GenerateController {
     String domainMeta(@PathVariable String tableName,
                       @RequestBody GenerateParams generateParams) {
         DataBaseConf dbConf = httpSession.getDataBaseConf()
-        def result = generateTarget.generateDomain('domain-meta', dbConf.name, tableName, generateParams)
+        def result = generateTarget.generateCode('domain-meta', dbConf.name, tableName, generateParams)
         return result
     }
 
@@ -42,7 +44,7 @@ class GenerateController {
     String domainSqlUpdate(@PathVariable String tableName,
                            @RequestBody GenerateParams generateParams) {
         DataBaseConf dbConf = httpSession.getDataBaseConf()
-        def result = generateTarget.generateDomain('domain-update', dbConf.name, tableName, generateParams)
+        def result = generateTarget.generateCode('domain-update', dbConf.name, tableName, generateParams)
         return result
     }
 
@@ -51,7 +53,7 @@ class GenerateController {
     String domainSqlQuery(@PathVariable String tableName,
                           @RequestBody GenerateParams generateParams) {
         DataBaseConf dbConf = httpSession.getDataBaseConf()
-        def result = generateTarget.generateDomain('domain-query', dbConf.name, tableName, generateParams)
+        def result = generateTarget.generateCode('domain-query', dbConf.name, tableName, generateParams)
         return result
     }
 
@@ -60,7 +62,7 @@ class GenerateController {
     String mapper(@PathVariable String tableName,
                   @RequestBody GenerateParams generateParams) {
         DataBaseConf dbConf = httpSession.getDataBaseConf()
-        def result = generateTarget.generateDomain('mapper', dbConf.name, tableName, generateParams)
+        def result = generateTarget.generateCode('mapper', dbConf.name, tableName, generateParams)
         return result
     }
 
@@ -69,7 +71,16 @@ class GenerateController {
     String dao(@PathVariable String tableName,
                @RequestBody GenerateParams generateParams) {
         DataBaseConf dbConf = httpSession.getDataBaseConf()
-        def result = generateTarget.generateDomain('dao', dbConf.name, tableName, generateParams)
+        def result = generateTarget.generateCode('dao', dbConf.name, tableName, generateParams)
         return result
+    }
+
+    @PostMapping("/one-key")
+    @ResponseBody
+    void oneKey(@RequestBody OneKeyConf oneKeyConf) {
+        if (!oneKeyConf.packageName || !oneKeyConf.dirPath || !oneKeyConf.tableName) {
+            throw new IcssException("请输入生成路径,包名(xx.xx or xx),表名")
+        }
+        generateTarget.oneKeyGenerate(oneKeyConf)
     }
 }

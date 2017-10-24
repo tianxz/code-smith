@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession
  * Created by XizeTian on 2016/12/16.
  */
 @Service
-class ProcessTable {
+class TableService {
     @Autowired
     MysqlDataBaseDao dao
     @Autowired

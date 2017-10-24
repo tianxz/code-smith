@@ -3,7 +3,7 @@ package com.icss.codesmith.database.controller
 import com.icss.codesmith.database.domain.DataBaseConf
 import com.icss.codesmith.database.meta.Column
 import com.icss.codesmith.database.meta.Table
-import com.icss.codesmith.database.service.ProcessTable
+import com.icss.codesmith.database.service.TableService
 import com.icss.codesmith.utils.UserDataSourceUtil
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
@@ -20,13 +20,13 @@ import javax.servlet.http.HttpSession
 class IndexController {
     @Autowired
     @Qualifier("sysProp")
-    Properties sysPro
+    Properties         sysPro
     @Autowired
-    ProcessTable processTable
+    TableService       processTable
     @Autowired
     UserDataSourceUtil userDbSourceUtil
     @Autowired
-    HttpSession httpSession
+    HttpSession        httpSession
 
     /**
      * 获取所有表, 表中包含列

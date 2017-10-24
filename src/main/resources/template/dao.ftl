@@ -16,6 +16,8 @@ public interface ${classInfo.name}Dao {
 
     List<${classInfo.name}> query(@Param("sqlQueries") List<SqlQuery> sqlQueries, @Param("limit") Limit limit);
 
+    ${classInfo.name} querySingle(@Param("sqlQueries") List<SqlQuery> sqlQueries);
+
     ${classInfo.name} queryById(long uuid);
 
     int insert${classInfo.name}(${classInfo.name} ${classInfo.name?cap_first});
