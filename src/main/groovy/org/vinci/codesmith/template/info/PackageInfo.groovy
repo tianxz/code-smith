@@ -6,6 +6,9 @@ package org.vinci.codesmith.template.info
 class PackageInfo {
     String fullName
     String rootName
+    String domainName
+    String daoName
+    String mateName
 
     @Override
     String toString() {

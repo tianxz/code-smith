@@ -48,7 +48,7 @@ class GenerateService {
         def authorInfo = new AuthorInfo()
         def dateInfo = new DateInfo()
         def imports = new ImportList(classInfo.fields)
-        def packageInfo = new PackageInfo(fullName: generateParams.packageInfo)
+        def packageInfo = new PackageInfo(rootName: generateParams.packageInfo)
 
         def param = [
                 "generateParams": generateParams,
