@@ -1,8 +1,8 @@
 package org.vinci.codesmith.utils
 
 import org.vinci.codesmith.gen.database.meta.Table
-import org.vinci.codesmith.template.info.ClassInfo
-import org.vinci.codesmith.template.info.FieldInfo
+import org.vinci.codesmith.template.info.ClassTemplateInfo
+import org.vinci.codesmith.template.info.FieldTemplateInfo
 import jodd.util.StringUtil
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -16,8 +16,8 @@ class DbMeta2TemplateInfoUtil {
     @Autowired
     PropertiesUtil propUtil
 
-    ClassInfo mysqlTableMeta2ClassInfo(Table table) {
-        ClassInfo classInfo = new ClassInfo()
+    ClassTemplateInfo mysqlTableMeta2ClassInfo(Table table) {
+        ClassTemplateInfo classInfo = new ClassTemplateInfo()
 
         classInfo.name = WordUtil
                 .of(table.customerName ? table.customerName : table.tableName)
@@ -28,7 +28,7 @@ class DbMeta2TemplateInfoUtil {
 
         classInfo.sqlName = table.tableName.toUpperCase()
         for (column in table.columns) {
-            FieldInfo fieldInfo = new FieldInfo()
+            FieldTemplateInfo fieldInfo = new FieldTemplateInfo()
             fieldInfo.describe = StringUtil.isEmpty(column.columnComment) ? null : column.columnComment
             fieldInfo.name = WordUtil.of(column.columnName.toLowerCase()).UnderlineField2HumpField().outValue()
             fieldInfo.sqlName = WordUtil.of(column.columnName).toUpper().outValue()

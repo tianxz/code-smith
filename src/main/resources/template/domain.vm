@@ -49,7 +49,7 @@ public class ${classInfo.name} {
 #* @implicitly included *#
 #* @vtlvariable name="packageInfo" type="org.vinci.codesmith.template.info.PackageInfo" *#
 #* @vtlvariable name="imports" type="org.vinci.codesmith.template.info.ImportList" *#
-#* @vtlvariable name="classInfo" type="org.vinci.codesmith.template.info.ClassInfo" *#
+#* @vtlvariable name="classInfo" type="org.vinci.codesmith.template.info.ClassTemplateInfo" *#
 #* @vtlvariable name="authorInfo" type="org.vinci.codesmith.template.info.AuthorInfo" *#
 #* @vtlvariable name="dateInfo" type="org.vinci.codesmith.template.info.DateInfo" *#
 #* @vtlvariable name="WordUtil" type="org.vinci.codesmith.utils.WordUtil" *#

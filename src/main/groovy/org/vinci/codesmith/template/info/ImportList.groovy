@@ -6,7 +6,7 @@ import org.vinci.codesmith.utils.PropertiesUtil
  * Created by XizeTian on 2016/12/30.
  */
 class ImportList extends ArrayList<String> {
-    ImportList(List<FieldInfo> fs) {
+    ImportList(List<FieldTemplateInfo> fs) {
         def prop = PropertiesUtil.of().getPackageProp()
         fs.each {
             def value = prop.getProperty(it.javaType)

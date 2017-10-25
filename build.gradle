@@ -29,7 +29,7 @@ repositories {
 
 jar {
     from('src/main/groovy') {
-        include '**/i.xml'
+        include '**/*.xml'
     }
 }
 
