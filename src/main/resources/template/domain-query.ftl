@@ -1,6 +1,6 @@
 ﻿<#include 'banner.ftl'>
 
-package ${generateParams.packageInfo};
+package ${packageInfo.fullName};
 
 /**
  * <#if classInfo.comment??>${classInfo.comment} 查询配置</#if>

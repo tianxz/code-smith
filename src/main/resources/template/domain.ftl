@@ -1,6 +1,6 @@
 <#include 'banner.ftl'>
 
-package ${generateParams.packageInfo};
+package ${packageInfo.fullName};
 
 <#list imports as import>
 import ${import};

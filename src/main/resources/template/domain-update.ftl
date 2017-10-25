@@ -1,6 +1,6 @@
 <#include 'banner.ftl'>
 
-package ${generateParams.packageInfo};
+package ${packageInfo.fullName};
 
 import java.util.ArrayList;
 import java.util.HashMap;

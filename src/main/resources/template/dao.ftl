@@ -1,6 +1,8 @@
+[#-- @implicitly included --]
+[#-- @ftlvariable name="WordUtil" type="org.vinci.codesmith.utils.WordUtil" --]
 <#include 'banner.ftl'>
 
-package ${generateParams.packageInfo};
+package ${packageInfo.fullName};
 
 import com.icss.ccp.ios.bridge.domain.*;
 import com.icss.ccp.ios.core.mybatis.*;
