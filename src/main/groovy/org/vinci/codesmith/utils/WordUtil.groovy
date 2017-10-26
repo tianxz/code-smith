@@ -1,4 +1,5 @@
 package org.vinci.codesmith.utils
+
 /**
  * Created by XizeTian on 2016/12/19.
  */
@@ -67,6 +68,11 @@ class WordUtil {
             targetValue += tmpCh
         }
         word = targetValue
+        return this
+    }
+
+    WordUtil UnderlineField2StrikeField() {
+        word = this.word.replace('_', '-')
         return this
     }
 

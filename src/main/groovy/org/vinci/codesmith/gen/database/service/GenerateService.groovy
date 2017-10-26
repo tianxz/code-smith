@@ -23,13 +23,13 @@ import org.springframework.stereotype.Service
 @Service
 class GenerateService {
     @Autowired
-    TableService processTable
+    TableService            processTable
     @Autowired
     DbMeta2TemplateInfoUtil dbMeta2TemplateInfoUtil
     @Autowired
-    TemplateEngine templateEngine
+    TemplateEngine          templateEngine
     @Autowired
-    UserDataSourceUtil httpSession
+    UserDataSourceUtil      httpSession
 
     /**
      * 根据指定表生成Domain
@@ -48,7 +48,7 @@ class GenerateService {
         def authorInfo = new AuthorInfo()
         def dateInfo = new DateInfo()
         def imports = new ImportList(classInfo.fields)
-        def packageInfo = new PackageInfo(rootName: generateParams.packageInfo)
+        def packageInfo = new PackageInfo(fullName: generateParams.packageInfo)
 
         def param = [
                 "generateParams": generateParams,
@@ -76,14 +76,16 @@ class GenerateService {
         String daoDirName = 'dao'
         String mateDirName = 'domain/meta'
         String mybatisHelpDirName = 'domain/curd'
+        String mapperDirName = 'mapper'
         String controllerDirName = 'controller'
         DataBaseConf dbConf = httpSession.getDataBaseConf()
 
-        writeCodeToFile(file.getPath(), 'domain', domainDirName, '', dbConf.name, conf.tableName, gp(conf.packageName, "domain"))
-        writeCodeToFile(file.getPath(), 'domain-meta', mateDirName, 'Mate', dbConf.name, conf.tableName, gp(conf.packageName, "domain.meta"))
-        writeCodeToFile(file.getPath(), 'dao', daoDirName, 'Dao', dbConf.name, conf.tableName, gp(conf.packageName, "dao"))
-        writeCodeToFile(file.getPath(), 'domain-update', mybatisHelpDirName, 'UpdateMap', dbConf.name, conf.tableName, gp(conf.packageName, "domain.curd"))
-        writeCodeToFile(file.getPath(), 'domain-query', mybatisHelpDirName, 'QueryMap', dbConf.name, conf.tableName, gp(conf.packageName, "domain.curd"))
+        writeCodeToFile('hump', file.getPath(), 'domain', domainDirName, '', dbConf.name, conf.tableName, gp(conf.packageName, "domain"), '.java')
+        writeCodeToFile('hump', file.getPath(), 'domain-meta', mateDirName, 'Mate', dbConf.name, conf.tableName, gp(conf.packageName, "domain.meta"), 'java')
+        writeCodeToFile('hump', file.getPath(), 'dao', daoDirName, 'Dao', dbConf.name, conf.tableName, gp(conf.packageName, "dao"), '.java')
+        writeCodeToFile('hump', file.getPath(), 'domain-update', mybatisHelpDirName, 'UpdateMap', dbConf.name, conf.tableName, gp(conf.packageName, "domain.curd"), '.java')
+        writeCodeToFile('hump', file.getPath(), 'domain-query', mybatisHelpDirName, 'QueryMap', dbConf.name, conf.tableName, gp(conf.packageName, "domain.curd"), '.java')
+        writeCodeToFile('strike', file.getPath(), 'mapper', mapperDirName, '-mapper', dbConf.name, conf.tableName, gp(conf.packageName, "mapper"), '.xml')
     }
 
     private GenerateParams gp(String packageName, String domain) {
@@ -95,9 +97,20 @@ class GenerateService {
         return gp
     }
 
-    private void writeCodeToFile(String baseDir, String ftlName, String domainDirName, String fileNameSuffix, String dbName, String tableName, GenerateParams gp) {
+    private void writeCodeToFile(String fileNameType, String baseDir, String ftlName, String domainDirName, String fileNameSuffix, String dbName, String tableName, GenerateParams gp, String fileExtension) {
         //生成代码
         Map map = this.generateCodeMap(ftlName, dbName, tableName, gp)
+        String fileName
+        switch (fileNameType) {
+            case 'hump':
+                fileName = map.param.classInfo.name
+                break
+            case 'strike':
+                fileName = WordUtil.of(map.param.classInfo.sqlAliasName).UnderlineField2StrikeField().out()
+                break
+            default:
+                break
+        }
 
         //创建临时文件并写入
         File tmpFile = FileUtil.createTempFile()
@@ -106,7 +119,7 @@ class GenerateService {
 
             //构造代码保存的路径
             String domainPath = FileNameUtil.concat(baseDir, domainDirName)
-            String domainFileName = map.param.classInfo.name + fileNameSuffix + '.java'
+            String domainFileName = fileName + fileNameSuffix + fileExtension
             String fullDomainFileName = FileNameUtil.concat(domainPath, domainFileName)
 
             //复制临时文件为代码文件

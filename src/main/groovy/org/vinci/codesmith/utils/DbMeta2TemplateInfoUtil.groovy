@@ -25,6 +25,10 @@ class DbMeta2TemplateInfoUtil {
                 .UnderlineField2HumpField()
                 .firstToUp()
                 .outValue()
+        classInfo.sqlAliasName = WordUtil
+                .of(table.customerName ? table.customerName : table.tableName)
+                .toLower()
+                .outValue()
 
         classInfo.sqlName = table.tableName.toUpperCase()
         for (column in table.columns) {

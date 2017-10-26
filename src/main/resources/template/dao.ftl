@@ -1,5 +1,3 @@
-[#-- @implicitly included --]
-[#-- @ftlvariable name="WordUtil" type="org.vinci.codesmith.utils.WordUtil" --]
 <#include 'banner.ftl'>
 
 package ${packageInfo.fullName};
