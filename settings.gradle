@@ -1,2 +1,4 @@
-rootProject.name = 'code-smith'
+rootProject.name = 'code-smith-build'
+include 'code-smith-core'
+include 'code-smith-plugin'
 
