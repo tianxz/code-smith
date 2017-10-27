@@ -1,10 +1,6 @@
 package org.vinci.codesmith.core.plugin.scurd
 
-import org.vinci.codesmith.core.collector.database.domain.DataBaseConf
-import org.vinci.codesmith.core.collector.database.domain.OneKeyConf
-import org.vinci.codesmith.core.exception.VinciException
 import org.vinci.codesmith.core.template.info.GenerateParams
-import org.vinci.codesmith.core.utils.UserDataSourceUtil
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
@@ -64,14 +60,5 @@ class GenerateController {
                @RequestBody GenerateParams generateParams) {
         def result = generateTarget.generateCode('dao', tableName, generateParams)
         return result
-    }
-
-    @PostMapping("/one-key")
-    @ResponseBody
-    void oneKey(@RequestBody OneKeyConf oneKeyConf) {
-        if (!oneKeyConf.packageName || !oneKeyConf.dirPath || !oneKeyConf.tableName) {
-            throw new VinciException("请输入生成路径,包名(xx.xx or xx),表名")
-        }
-        generateTarget.oneKeyGenerate(oneKeyConf)
     }
 }

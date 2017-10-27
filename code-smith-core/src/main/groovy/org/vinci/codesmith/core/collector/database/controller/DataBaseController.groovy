@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession
  */
 @Controller
 @RequestMapping("/database")
-class IndexController {
+class DataBaseController {
     @Autowired
     @Qualifier("sysProp")
     Properties         sysPro

@@ -1,6 +1,6 @@
 package org.vinci.codesmith.core.plugin.scurd
 
-import org.vinci.codesmith.core.collector.database.domain.OneKeyConf
+import org.vinci.codesmith.core.collector.base.dto.OneKeyConf
 import org.vinci.codesmith.core.collector.database.domain.DataBaseConf
 import org.vinci.codesmith.core.collector.database.service.TableService
 import org.vinci.codesmith.core.engine.TemplateEngine
@@ -23,13 +23,13 @@ import org.springframework.stereotype.Service
 @Service
 class GenerateService {
     @Autowired
-    TableService            tableService
+    TableService tableService
     @Autowired
     DbMeta2TemplateInfoUtil dbMeta2TemplateInfoUtil
     @Autowired
-    TemplateEngine          templateEngine
+    TemplateEngine templateEngine
     @Autowired
-    UserDataSourceUtil      udbUtil
+    UserDataSourceUtil udbUtil
 
     /**
      * 根据指定表生成Domain
@@ -42,8 +42,8 @@ class GenerateService {
 
     Map generateCodeMap(String ftlName, String dbName, String tableName, GenerateParams generateParams) {
         String vmName = ftlName
+        Map tableMapping = httpSession.getAttribute('USER:TABLE:MAPPING')
         def table = tableService.getTable(dbName, tableName)
-        def tableMapping = httpSession.getAttribute('USER:TABLE:MAPPING')
         def classInfo = dbMeta2TemplateInfoUtil.mysqlTableMeta2ClassInfo(table, tableMapping)
         def authorInfo = new AuthorInfo()
         def dateInfo = new DateInfo()
