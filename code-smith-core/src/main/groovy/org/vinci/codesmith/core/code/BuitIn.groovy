@@ -27,9 +27,6 @@ abstract class BuitIn {
     }
 
     static void init() {
-        final ClassLoader classLoader = BuitIn.class.getClassLoader()
-
-        println ''
     }
 
     abstract Map buildContext(GenDto genDto)
@@ -39,6 +36,10 @@ abstract class BuitIn {
     abstract buildTemplateName()
 
     void start(GenDto genDto) {
+        final ClassLoader classLoader = BuitIn.class.getClassLoader()
+        Enumeration<URL> enumeration = classLoader.getResources(this.getClass().package.name.replace('.', '/'))
+        println ''
+
         threadLocal.set(genDto)
 
         try {
