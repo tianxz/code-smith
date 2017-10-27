@@ -22,15 +22,7 @@ abstract class BuitIn {
 
     }
 
-    TemplateContext buildContext(OneKeyConf oneKeyConf) {
+    abstract Map buildContext(OneKeyConf oneKeyConf)
 
-    }
-
-    String getTemplateName() {
-
-    }
-
-    String generateCode() {
-
-    }
+    abstract String getTemplateName()
 }
