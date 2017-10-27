@@ -1,9 +1,9 @@
 package org.vinci.codesmith.core.collector.database.dao
 
-import org.vinci.codesmith.core.collector.database.meta.Table
+import org.vinci.codesmith.core.collector.database.domain.Table
 import org.apache.ibatis.annotations.Mapper
 import org.apache.ibatis.annotations.Select
-import org.vinci.codesmith.core.collector.database.meta.Column
+import org.vinci.codesmith.core.collector.database.domain.Column
 
 /**
  * Created by XizeTian on 2016/12/16.

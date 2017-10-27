@@ -1,11 +1,13 @@
-package org.vinci.codesmith.core.utils
+package org.vinci.codesmith.core.plugin.scurd
 
-import org.vinci.codesmith.core.collector.database.meta.Table
-import org.vinci.codesmith.core.template.info.ClassTemplateInfo
-import org.vinci.codesmith.core.template.info.FieldTemplateInfo
 import jodd.util.StringUtil
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import org.vinci.codesmith.core.collector.database.domain.Table
+import org.vinci.codesmith.core.template.info.ClassTemplateInfo
+import org.vinci.codesmith.core.template.info.FieldTemplateInfo
+import org.vinci.codesmith.core.utils.PropertiesUtil
+import org.vinci.codesmith.core.utils.WordUtil
 
 /**
  * 转换数据库表信息为ClassInfo
@@ -16,17 +18,18 @@ class DbMeta2TemplateInfoUtil {
     @Autowired
     PropertiesUtil propUtil
 
-    ClassTemplateInfo mysqlTableMeta2ClassInfo(Table table) {
+    ClassTemplateInfo mysqlTableMeta2ClassInfo(Table table, Map map) {
         ClassTemplateInfo classInfo = new ClassTemplateInfo()
+        String tableAliasName = map.containsKey(table.tableName) ? map.get(table.tableName) : table.tableName
 
         classInfo.name = WordUtil
-                .of(table.customerName ? table.customerName : table.tableName)
+                .of(tableAliasName)
                 .toLower()
                 .UnderlineField2HumpField()
                 .firstToUp()
                 .outValue()
         classInfo.sqlAliasName = WordUtil
-                .of(table.customerName ? table.customerName : table.tableName)
+                .of(tableAliasName)
                 .toLower()
                 .outValue()
 

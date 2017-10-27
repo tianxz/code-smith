@@ -1,8 +1,8 @@
 package org.vinci.codesmith.core.collector.database.controller
 
 import org.vinci.codesmith.core.collector.database.domain.DataBaseConf
-import org.vinci.codesmith.core.collector.database.meta.Column
-import org.vinci.codesmith.core.collector.database.meta.Table
+import org.vinci.codesmith.core.collector.database.domain.Column
+import org.vinci.codesmith.core.collector.database.domain.Table
 import org.vinci.codesmith.core.collector.database.service.TableService
 import org.vinci.codesmith.core.utils.UserDataSourceUtil
 import org.springframework.beans.factory.annotation.Autowired

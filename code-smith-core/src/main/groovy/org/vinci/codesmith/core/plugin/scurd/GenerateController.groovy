@@ -1,8 +1,7 @@
-package org.vinci.codesmith.core.collector.database.controller
+package org.vinci.codesmith.core.plugin.scurd
 
 import org.vinci.codesmith.core.collector.database.domain.DataBaseConf
 import org.vinci.codesmith.core.collector.database.domain.OneKeyConf
-import org.vinci.codesmith.core.collector.database.service.GenerateService
 import org.vinci.codesmith.core.exception.VinciException
 import org.vinci.codesmith.core.template.info.GenerateParams
 import org.vinci.codesmith.core.utils.UserDataSourceUtil
@@ -17,16 +16,13 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/generate")
 class GenerateController {
     @Autowired
-    GenerateService    generateTarget
-    @Autowired
-    UserDataSourceUtil httpSession
+    GenerateService generateTarget
 
     @RequestMapping(value = "/domain/{tableName}", method = RequestMethod.POST)
     @ResponseBody
     String domain(@PathVariable String tableName,
                   @RequestBody GenerateParams generateParams) {
-        DataBaseConf dbConf = httpSession.getDataBaseConf()
-        def result = generateTarget.generateCode("domain", dbConf.name, tableName, generateParams)
+        def result = generateTarget.generateCode("domain", tableName, generateParams)
         return result
     }
 
@@ -34,8 +30,7 @@ class GenerateController {
     @ResponseBody
     String domainMeta(@PathVariable String tableName,
                       @RequestBody GenerateParams generateParams) {
-        DataBaseConf dbConf = httpSession.getDataBaseConf()
-        def result = generateTarget.generateCode('domain-meta', dbConf.name, tableName, generateParams)
+        def result = generateTarget.generateCode('domain-meta', tableName, generateParams)
         return result
     }
 
@@ -43,8 +38,7 @@ class GenerateController {
     @ResponseBody
     String domainSqlUpdate(@PathVariable String tableName,
                            @RequestBody GenerateParams generateParams) {
-        DataBaseConf dbConf = httpSession.getDataBaseConf()
-        def result = generateTarget.generateCode('domain-update', dbConf.name, tableName, generateParams)
+        def result = generateTarget.generateCode('domain-update', tableName, generateParams)
         return result
     }
 
@@ -52,8 +46,7 @@ class GenerateController {
     @ResponseBody
     String domainSqlQuery(@PathVariable String tableName,
                           @RequestBody GenerateParams generateParams) {
-        DataBaseConf dbConf = httpSession.getDataBaseConf()
-        def result = generateTarget.generateCode('domain-query', dbConf.name, tableName, generateParams)
+        def result = generateTarget.generateCode('domain-query', tableName, generateParams)
         return result
     }
 
@@ -61,8 +54,7 @@ class GenerateController {
     @ResponseBody
     String mapper(@PathVariable String tableName,
                   @RequestBody GenerateParams generateParams) {
-        DataBaseConf dbConf = httpSession.getDataBaseConf()
-        def result = generateTarget.generateCode('mapper', dbConf.name, tableName, generateParams)
+        def result = generateTarget.generateCode('mapper', tableName, generateParams)
         return result
     }
 
@@ -70,8 +62,7 @@ class GenerateController {
     @ResponseBody
     String dao(@PathVariable String tableName,
                @RequestBody GenerateParams generateParams) {
-        DataBaseConf dbConf = httpSession.getDataBaseConf()
-        def result = generateTarget.generateCode('dao', dbConf.name, tableName, generateParams)
+        def result = generateTarget.generateCode('dao', tableName, generateParams)
         return result
     }
 

@@ -1,10 +1,10 @@
 package org.vinci.codesmith.core.collector.database.service
 
 import org.vinci.codesmith.core.collector.database.dao.MysqlDataBaseDao
-import org.vinci.codesmith.core.collector.database.meta.Table
+import org.vinci.codesmith.core.collector.database.domain.Table
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import org.vinci.codesmith.core.collector.database.meta.Column
+import org.vinci.codesmith.core.collector.database.domain.Column
 
 import javax.servlet.http.HttpSession
 
@@ -16,7 +16,7 @@ class TableService {
     @Autowired
     MysqlDataBaseDao dao
     @Autowired
-    HttpSession httpSession
+    HttpSession      httpSession
 
     /**
      * 获取指定数据库的所有表, 表中包含列
@@ -48,16 +48,8 @@ class TableService {
      * @return
      */
     Table getTable(String dbName, String tableName) {
-        def sessionTableMapping = httpSession.getAttribute('USER:TABLE:MAPPING')
-
         def table = dao.getTable(dbName, tableName)
         def columns = getColumns(dbName, table.tableName)
-        if (sessionTableMapping) {
-            def tableMapping = (Map) sessionTableMapping
-            if (tableMapping.containsKey(table.tableName)) {
-                table.customerName = tableMapping.get(table.tableName)
-            }
-        }
         table.columns = columns
         return table
     }

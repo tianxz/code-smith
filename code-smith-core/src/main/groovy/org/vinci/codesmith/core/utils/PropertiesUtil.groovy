@@ -23,8 +23,13 @@ class PropertiesUtil {
 
     protected Properties getPropByName(String name) {
         Properties prop = new Properties()
-        InputStream path = Thread.currentThread().getContextClassLoader().getResourceAsStream(name)
-        prop.load(path)
+        InputStream path = null
+        try {
+            path = Thread.currentThread().getContextClassLoader().getResourceAsStream(name)
+            prop.load(path)
+        } finally {
+            if (path) path.close()
+        }
         return prop
     }
 }

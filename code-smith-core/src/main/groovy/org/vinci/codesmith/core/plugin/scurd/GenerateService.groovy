@@ -1,14 +1,14 @@
-package org.vinci.codesmith.core.collector.database.service
+package org.vinci.codesmith.core.plugin.scurd
 
 import org.vinci.codesmith.core.collector.database.domain.OneKeyConf
 import org.vinci.codesmith.core.collector.database.domain.DataBaseConf
+import org.vinci.codesmith.core.collector.database.service.TableService
 import org.vinci.codesmith.core.engine.TemplateEngine
 import org.vinci.codesmith.core.template.info.AuthorInfo
 import org.vinci.codesmith.core.template.info.DateInfo
 import org.vinci.codesmith.core.template.info.GenerateParams
 import org.vinci.codesmith.core.template.info.ImportList
 import org.vinci.codesmith.core.template.info.PackageInfo
-import org.vinci.codesmith.core.utils.DbMeta2TemplateInfoUtil
 import org.vinci.codesmith.core.utils.WordUtil
 import org.vinci.codesmith.core.utils.UserDataSourceUtil
 import jodd.io.FileNameUtil
@@ -23,28 +23,28 @@ import org.springframework.stereotype.Service
 @Service
 class GenerateService {
     @Autowired
-    TableService            processTable
+    TableService            tableService
     @Autowired
     DbMeta2TemplateInfoUtil dbMeta2TemplateInfoUtil
     @Autowired
     TemplateEngine          templateEngine
     @Autowired
-    UserDataSourceUtil      httpSession
+    UserDataSourceUtil      udbUtil
 
     /**
      * 根据指定表生成Domain
      * @param dbName
      * @param tableName
      */
-    String generateCode(String ftlName, String dbName, String tableName, GenerateParams generateParams) {
-        return generateCodeMap(ftlName, dbName, tableName, generateParams).code
+    String generateCode(String ftlName, String tableName, GenerateParams generateParams) {
+        return generateCodeMap(ftlName, udbUtil.defaultDbName, tableName, generateParams).code
     }
 
     Map generateCodeMap(String ftlName, String dbName, String tableName, GenerateParams generateParams) {
         String vmName = ftlName
-        def table = processTable.getTable(dbName, tableName)
-
-        def classInfo = dbMeta2TemplateInfoUtil.mysqlTableMeta2ClassInfo(table)
+        def table = tableService.getTable(dbName, tableName)
+        def tableMapping = httpSession.getAttribute('USER:TABLE:MAPPING')
+        def classInfo = dbMeta2TemplateInfoUtil.mysqlTableMeta2ClassInfo(table, tableMapping)
         def authorInfo = new AuthorInfo()
         def dateInfo = new DateInfo()
         def imports = new ImportList(classInfo.fields)
@@ -77,7 +77,7 @@ class GenerateService {
         String mateDirName = 'domain/meta'
         String mybatisHelpDirName = 'domain/curd'
         String mapperDirName = 'mapper'
-        DataBaseConf dbConf = httpSession.getDataBaseConf()
+        DataBaseConf dbConf = udbUtil.getDataBaseConf()
 
         writeCodeToFile('hump', file.getPath(), 'domain', domainDirName, '', dbConf.name, conf.tableName, gp(conf.packageName, "domain"), '.java')
         writeCodeToFile('hump', file.getPath(), 'domain-meta', mateDirName, 'Mate', dbConf.name, conf.tableName, gp(conf.packageName, "domain.meta"), '.java')

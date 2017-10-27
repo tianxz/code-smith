@@ -14,7 +14,7 @@ import javax.sql.DataSource
 @Component
 class UserDataSourceUtil {
     final String dataBaseConfKey = "DB:CONF"
-    final String dataSourceKey = "DB:SOURCE"
+    final String dataSourceKey   = "DB:SOURCE"
 
     @Autowired
     HttpSession httpSession
