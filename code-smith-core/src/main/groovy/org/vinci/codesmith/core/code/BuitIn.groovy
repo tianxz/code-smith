@@ -1,6 +1,7 @@
 package org.vinci.codesmith.core.code
 
-import freemarker.core.BuiltIn
+import jodd.io.FileNameUtil
+import jodd.io.FileUtil
 import org.vinci.codesmith.core.collector.base.dto.EngineType
 import org.vinci.codesmith.core.collector.base.dto.FileType
 import org.vinci.codesmith.core.collector.base.dto.GenDto
@@ -9,45 +10,28 @@ import org.vinci.codesmith.core.engine.TemplateEngine
 import org.vinci.codesmith.core.engine.impl.FreemarkerEngine
 import org.vinci.codesmith.core.engine.impl.VelocityEngine
 import org.vinci.codesmith.core.exception.VinciException
+import org.vinci.codesmith.core.utils.SpringUtil
 import org.vinci.codesmith.core.utils.WordUtil
 
 /**
  * Created by XizeTian on 2017/10/25.
  */
 abstract class BuitIn {
-    private static final HashMap             hashMap     = new HashMap()
     private static final ThreadLocal<GenDto> threadLocal = new ThreadLocal<>()
-
-    static {
-
-    }
-
-    static void putBI(String name, BuiltIn bi) {
-        hashMap.put(name, bi)
-    }
-
-    static void init() {
-    }
 
     abstract Map buildContext(GenDto genDto)
 
     abstract String buildDirName()
 
-    abstract buildTemplateName()
+    abstract String buildTemplateName()
+
+    abstract String getBeanName()
 
     void start(GenDto genDto) {
-        final ClassLoader classLoader = BuitIn.class.getClassLoader()
-        Enumeration<URL> enumeration = classLoader.getResources(this.getClass().package.name.replace('.', '/'))
-        println ''
-
         threadLocal.set(genDto)
 
         try {
-            String fileName = this.buildFileName()
-            String fileExtendName = this.buildFileExtendName()
-            String className = this.buildClassName()
-            String packageName = this.buildPackageName()
-            String rootPackageName = this.buildBasePackageName()
+            String fileName = this.buildFileName() + '.' + this.buildFileExtendName()
             String templateName = this.buildTemplateName()
             String baseDirPath = this.buildBaseDirPath()
             String packageDirPath = this.buildPackageDirPath()
@@ -57,26 +41,44 @@ abstract class BuitIn {
             TemplateEngine templateEngine
             switch (genDto.engineType) {
                 case EngineType.FREEMARKER:
-                    templateEngine = new FreemarkerEngine()
+                    templateEngine = SpringUtil.context.getBean(FreemarkerEngine.class)
                     break
                 case EngineType.VELOCITY:
-                    templateEngine = new VelocityEngine()
+                    context.put('WordUtil', WordUtil.class)
+                    templateEngine = SpringUtil.context.getBean(VelocityEngine.class)
                     break
             }
 
             String codeResult = templateEngine.process(context, templateName)
+
+            writerCodeToFile(codeResult, "${baseDirPath}/${packageDirPath}/${dirName}", fileName)
         } finally {
             threadLocal.remove()
         }
     }
 
+    void writerCodeToFile(String code, String fileDir, String fileName) {
+        File tmpFile = FileUtil.createTempFile()
+        try {
+            tmpFile.write(code)
+
+            //构造代码保存的路径
+            String filePath = FileNameUtil.concat(fileDir, fileName)
+
+            //复制临时文件为代码文件
+            FileUtil.copy(tmpFile, new File(filePath))
+        } finally {
+            FileUtil.delete(tmpFile)
+        }
+    }
+
     String buildPackageDirPath() {
-        GenDto genDto = this.getGenDto()
+        GenDto genDto = this.getLocalGenDto()
         return genDto.ownerConf.packageName.replace('.', '/')
     }
 
     String buildBaseDirPath() {
-        GenDto genDto = this.getGenDto()
+        GenDto genDto = this.getLocalGenDto()
         return genDto.ownerConf.dirPath.replace('.', '/')
     }
 
@@ -86,26 +88,28 @@ abstract class BuitIn {
      * @return
      */
     String buildFileName() {
-        GenDto genDto = this.getGenDto()
+        GenDto genDto = this.getLocalGenDto()
         String fileName
+        String tableAliasName
         if (genDto.dataSource instanceof Table) {
             Table table = (Table) genDto.dataSource
-            String tableAliasName = getRealName(table.tableName)
-            switch (genDto.fileType) {
-                case FileType.JAVA:
-                    fileName = WordUtil.of(tableAliasName).toLower().UnderlineField2HumpField().firstToUp().out()
-                    break
-                case FileType.XML:
-                    fileName = WordUtil.of(tableAliasName).toLower().UnderlineField2StrikeField().out()
-                    break
-                default:
-                    throw new VinciException("请输入正确的文件类型, 参考: java, xml")
-                    break
-            }
+            tableAliasName = getRealName(table.tableName)
         } else {
             throw new VinciException("无法识别采集对象的类型")
         }
-        return fileName + '.' + this.buildFileExtendName()
+
+        switch (genDto.fileType) {
+            case FileType.JAVA:
+                fileName = WordUtil.of(tableAliasName).toLower().UnderlineField2HumpField().firstToUp().out()
+                break
+            case FileType.XML:
+                fileName = WordUtil.of(tableAliasName).toLower().UnderlineField2StrikeField().out()
+                break
+            default:
+                throw new VinciException("请输入正确的文件类型, 参考: java, xml")
+                break
+        }
+        return fileName
     }
 
     /**
@@ -114,7 +118,7 @@ abstract class BuitIn {
      * @return
      */
     String buildClassName() {
-        GenDto genDto = this.getGenDto()
+        GenDto genDto = this.getLocalGenDto()
         String className
         if (genDto.dataSource instanceof Table) {
             Table table = (Table) genDto.dataSource
@@ -132,8 +136,8 @@ abstract class BuitIn {
      * @return
      */
     String buildFileExtendName() {
-        GenDto genDto = this.getGenDto()
-        return genDto.fileType ? 'java' : genDto.fileType.getValue()
+        GenDto genDto = this.getLocalGenDto()
+        return genDto.fileType.getValue()
     }
 
     /**
@@ -142,22 +146,26 @@ abstract class BuitIn {
      * @return
      */
     String buildPackageName() {
-        GenDto genDto = this.getGenDto()
+        GenDto genDto = this.getLocalGenDto()
         if (!genDto.ownerConf.packageName) throw new VinciException("尚未配置 package 信息")
         return genDto.ownerConf.packageName + "." + buildDirName()
     }
 
+    /**
+     * 用户输入的 package 信息
+     * @return
+     */
     String buildBasePackageName() {
-        GenDto genDto = this.getGenDto()
+        GenDto genDto = this.getLocalGenDto()
         return genDto.ownerConf.packageName
     }
 
-    private GenDto getGenDto() {
+    private GenDto getLocalGenDto() {
         return threadLocal.get()
     }
 
     private String getRealName(String tableName) {
-        GenDto genDto = this.getGenDto()
+        GenDto genDto = this.getLocalGenDto()
         return genDto.ownerConf.aliasNameMap.containsKey(tableName) ? genDto.ownerConf.aliasNameMap.get(tableName) : tableName
     }
 }

@@ -1,4 +1,4 @@
-package org.vinci.codesmith.core.template.info
+package org.vinci.codesmith.core.plugin.scurd.info
 
 import org.vinci.codesmith.core.utils.PropertiesUtil
 

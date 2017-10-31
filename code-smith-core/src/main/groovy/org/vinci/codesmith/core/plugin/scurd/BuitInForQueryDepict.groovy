@@ -11,13 +11,13 @@ import org.vinci.codesmith.core.plugin.scurd.info.ImportList
 import org.vinci.codesmith.core.plugin.scurd.info.PackageInfo
 
 /**
- * Created by XizeTian on 2017/10/27.
+ * Created by XizeTian on 2017/10/31.
  */
 @Component
-class BuitInForDomain extends BuitIn {
-    private final String                  BEAN_NAME     = 'domain'
-    private final String                  DIR_NAME      = 'domain'
-    private final String                  TEMPLATE_NAME = '/scurd/domain'
+class BuitInForQueryDepict extends BuitIn {
+    private final String                  BEAN_NAME     = 'query_depict'
+    private final String                  DIR_NAME      = 'domain/depict'
+    private final String                  TEMPLATE_NAME = '/scurd/query-depict'
     @Autowired
     private       DbMeta2TemplateInfoUtil dbMeta2TemplateInfoUtil
 
@@ -58,5 +58,11 @@ class BuitInForDomain extends BuitIn {
     @Override
     String getBeanName() {
         return BEAN_NAME
+    }
+
+    @Override
+    String buildFileName() {
+        String fileName = super.buildFileName()
+        return "${fileName}QueryDepict"
     }
 }

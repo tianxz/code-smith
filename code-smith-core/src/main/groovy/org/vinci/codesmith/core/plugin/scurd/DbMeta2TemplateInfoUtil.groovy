@@ -4,8 +4,8 @@ import jodd.util.StringUtil
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import org.vinci.codesmith.core.collector.database.domain.Table
-import org.vinci.codesmith.core.template.info.ClassTemplateInfo
-import org.vinci.codesmith.core.template.info.FieldTemplateInfo
+import org.vinci.codesmith.core.plugin.scurd.info.ClassTemplateInfo
+import org.vinci.codesmith.core.plugin.scurd.info.FieldTemplateInfo
 import org.vinci.codesmith.core.utils.PropertiesUtil
 import org.vinci.codesmith.core.utils.WordUtil
 

@@ -47,9 +47,9 @@ public class ${classInfo.name} {
 ## <-- build property end
 }
 #* @implicitly included *#
-#* @vtlvariable name="packageInfo" type="org.vinci.codesmith.core.template.info.PackageInfo" *#
-#* @vtlvariable name="imports" type="org.vinci.codesmith.core.template.info.ImportList" *#
-#* @vtlvariable name="classInfo" type="org.vinci.codesmith.core.template.info.ClassTemplateInfo" *#
-#* @vtlvariable name="authorInfo" type="org.vinci.codesmith.core.template.info.AuthorInfo" *#
-#* @vtlvariable name="dateInfo" type="org.vinci.codesmith.core.template.info.DateInfo" *#
+#* @vtlvariable name="packageInfo" type="org.vinci.codesmith.core.plugin.scurd.info.PackageInfo" *#
+#* @vtlvariable name="imports" type="org.vinci.codesmith.core.plugin.scurd.info.ImportList" *#
+#* @vtlvariable name="classInfo" type="org.vinci.codesmith.core.plugin.scurd.info.ClassTemplateInfo" *#
+#* @vtlvariable name="authorInfo" type="org.vinci.codesmith.core.plugin.scurd.info.AuthorInfo" *#
+#* @vtlvariable name="dateInfo" type="org.vinci.codesmith.core.plugin.scurd.info.DateInfo" *#
 #* @vtlvariable name="WordUtil" type="org.vinci.codesmith.core.utils.WordUtil" *#

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
 import org.vinci.codesmith.core.code.BuitIn
+import org.vinci.codesmith.core.code.BuitInFactory
 import org.vinci.codesmith.core.collector.base.dto.EngineType
 import org.vinci.codesmith.core.collector.base.dto.FileType
 import org.vinci.codesmith.core.collector.base.dto.GenDto
@@ -27,6 +28,8 @@ class ShellController {
     TableService       tableService
     @Autowired
     UserDataSourceUtil udsUtil
+    @Autowired
+    BuitInFactory      buitInFactory
 
     @PostMapping("/one-key")
     @ResponseBody
@@ -55,7 +58,7 @@ class ShellController {
             genDto.ownerConf = oneKeyConf
             genDto.dataSource = table
 
-            BuitIn buitIn = new BuitInForDomain()
+            BuitIn buitIn = buitInFactory.getBI(genDto.codeType)
             buitIn.start(genDto)
         }
     }

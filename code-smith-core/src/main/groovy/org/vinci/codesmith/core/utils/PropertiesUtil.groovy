@@ -14,7 +14,7 @@ class PropertiesUtil {
     }
 
     Properties getMysqlDataProp() {
-        return getPropByName('mysqldata.properties')
+        return getPropByName('mysql-data.properties')
     }
 
     Properties getPackageProp() {
