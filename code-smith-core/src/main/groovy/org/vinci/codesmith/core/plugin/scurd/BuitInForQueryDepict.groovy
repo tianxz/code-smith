@@ -16,8 +16,8 @@ import org.vinci.codesmith.core.plugin.scurd.info.PackageInfo
 @Component
 class BuitInForQueryDepict extends BuitIn {
     private final String                  BEAN_NAME     = 'query_depict'
-    private final String                  DIR_NAME      = 'domain/depict'
-    private final String                  TEMPLATE_NAME = '/scurd/query-depict'
+    private final String                  DIR_NAME      = 'depict'
+    private final String                  TEMPLATE_NAME = 'scurd/query-depict'
     @Autowired
     private       DbMeta2TemplateInfoUtil dbMeta2TemplateInfoUtil
 

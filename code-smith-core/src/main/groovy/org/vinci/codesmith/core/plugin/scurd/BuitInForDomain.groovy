@@ -17,7 +17,7 @@ import org.vinci.codesmith.core.plugin.scurd.info.PackageInfo
 class BuitInForDomain extends BuitIn {
     private final String                  BEAN_NAME     = 'domain'
     private final String                  DIR_NAME      = 'domain'
-    private final String                  TEMPLATE_NAME = '/scurd/domain'
+    private final String                  TEMPLATE_NAME = 'scurd/domain'
     @Autowired
     private       DbMeta2TemplateInfoUtil dbMeta2TemplateInfoUtil
 

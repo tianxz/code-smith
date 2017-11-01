@@ -57,6 +57,8 @@ class ShellController {
 
             genDto.ownerConf = oneKeyConf
             genDto.dataSource = table
+            genDto.packageName = genDto.packageName == null ? oneKeyConf.packageName : genDto.packageName
+            genDto.dirPath = genDto.dirPath == null ? oneKeyConf.dirPath : genDto.dirPath
 
             BuitIn buitIn = buitInFactory.getBI(genDto.codeType)
             buitIn.start(genDto)

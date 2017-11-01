@@ -25,7 +25,7 @@ class VelocityEngine implements TemplateEngine {
             tempName = tempName + ".vm"
         }
 
-        Template template = ve.getTemplate("template/" + tempName)
+        Template template = ve.getTemplate("templates/plugin/" + tempName)
         StringWriter sw = new StringWriter()
         template.merge(new VelocityContext(map), sw)
         if (sw != null) {

@@ -11,13 +11,13 @@ import org.vinci.codesmith.core.plugin.scurd.info.ImportList
 import org.vinci.codesmith.core.plugin.scurd.info.PackageInfo
 
 /**
- * Created by XizeTian on 2017/10/31.
+ * Created by XizeTian on 2017/10/27.
  */
 @Component
-class BuitInForDao extends BuitIn {
-    private final String                  BEAN_NAME     = 'dao'
-    private final String                  DIR_NAME      = 'dao'
-    private final String                  TEMPLATE_NAME = 'scurd/dao'
+class BuitInForMapper extends BuitIn {
+    private final String                  BEAN_NAME     = 'mapper'
+    private final String                  DIR_NAME      = 'mapper'
+    private final String                  TEMPLATE_NAME = 'scurd/mapper'
     @Autowired
     private       DbMeta2TemplateInfoUtil dbMeta2TemplateInfoUtil
 
@@ -63,6 +63,6 @@ class BuitInForDao extends BuitIn {
     @Override
     String buildFileName() {
         String fileName = super.buildFileName()
-        return "${fileName}Dao"
+        return "${fileName}-mapper"
     }
 }

@@ -19,13 +19,13 @@ import org.vinci.codesmith.core.utils.WordUtil
 abstract class BuitIn {
     private static final ThreadLocal<GenDto> threadLocal = new ThreadLocal<>()
 
-    abstract Map buildContext(GenDto genDto)
+    protected abstract Map buildContext(GenDto genDto)
 
-    abstract String buildDirName()
+    protected abstract String buildDirName()
 
-    abstract String buildTemplateName()
+    protected abstract String buildTemplateName()
 
-    abstract String getBeanName()
+    protected abstract String getBeanName()
 
     void start(GenDto genDto) {
         threadLocal.set(genDto)
@@ -57,29 +57,14 @@ abstract class BuitIn {
         }
     }
 
-    void writerCodeToFile(String code, String fileDir, String fileName) {
-        File tmpFile = FileUtil.createTempFile()
-        try {
-            tmpFile.write(code)
-
-            //构造代码保存的路径
-            String filePath = FileNameUtil.concat(fileDir, fileName)
-
-            //复制临时文件为代码文件
-            FileUtil.copy(tmpFile, new File(filePath))
-        } finally {
-            FileUtil.delete(tmpFile)
-        }
+    protected String buildPackageDirPath() {
+        GenDto genDto = this.getLocalGenDto()
+        return genDto.packageName.replace('.', '/')
     }
 
-    String buildPackageDirPath() {
+    protected String buildBaseDirPath() {
         GenDto genDto = this.getLocalGenDto()
-        return genDto.ownerConf.packageName.replace('.', '/')
-    }
-
-    String buildBaseDirPath() {
-        GenDto genDto = this.getLocalGenDto()
-        return genDto.ownerConf.dirPath.replace('.', '/')
+        return genDto.dirPath.replace('.', '/')
     }
 
     /**
@@ -87,7 +72,7 @@ abstract class BuitIn {
      * @param genDto
      * @return
      */
-    String buildFileName() {
+    protected String buildFileName() {
         GenDto genDto = this.getLocalGenDto()
         String fileName
         String tableAliasName
@@ -117,7 +102,7 @@ abstract class BuitIn {
      * @param genDto
      * @return
      */
-    String buildClassName() {
+    protected String buildClassName() {
         GenDto genDto = this.getLocalGenDto()
         String className
         if (genDto.dataSource instanceof Table) {
@@ -135,7 +120,7 @@ abstract class BuitIn {
      * @param genDto
      * @return
      */
-    String buildFileExtendName() {
+    protected String buildFileExtendName() {
         GenDto genDto = this.getLocalGenDto()
         return genDto.fileType.getValue()
     }
@@ -145,7 +130,7 @@ abstract class BuitIn {
      * @param genDto
      * @return
      */
-    String buildPackageName() {
+    protected String buildPackageName() {
         GenDto genDto = this.getLocalGenDto()
         if (!genDto.ownerConf.packageName) throw new VinciException("尚未配置 package 信息")
         return genDto.ownerConf.packageName + "." + buildDirName()
@@ -155,17 +140,32 @@ abstract class BuitIn {
      * 用户输入的 package 信息
      * @return
      */
-    String buildBasePackageName() {
+    protected String buildBasePackageName() {
         GenDto genDto = this.getLocalGenDto()
         return genDto.ownerConf.packageName
     }
 
-    private GenDto getLocalGenDto() {
+    protected GenDto getLocalGenDto() {
         return threadLocal.get()
     }
 
     private String getRealName(String tableName) {
         GenDto genDto = this.getLocalGenDto()
         return genDto.ownerConf.aliasNameMap.containsKey(tableName) ? genDto.ownerConf.aliasNameMap.get(tableName) : tableName
+    }
+
+    private void writerCodeToFile(String code, String fileDir, String fileName) {
+        File tmpFile = FileUtil.createTempFile()
+        try {
+            tmpFile.write(code)
+
+            //构造代码保存的路径
+            String filePath = FileNameUtil.concat(fileDir, fileName)
+
+            //复制临时文件为代码文件
+            FileUtil.copy(tmpFile, new File(filePath))
+        } finally {
+            FileUtil.delete(tmpFile)
+        }
     }
 }

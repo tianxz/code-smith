@@ -9,6 +9,8 @@ import org.vinci.codesmith.core.serializer.FileTypeDeserializer
  */
 class GenDto {
     def        dataSource       //数据源Table, Json
+    String     dirPath
+    String     packageName
     String     codeType
     @JsonDeserialize(using = FileTypeDeserializer.class)
     FileType   fileType
