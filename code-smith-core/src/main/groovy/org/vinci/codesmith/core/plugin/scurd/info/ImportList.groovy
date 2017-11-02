@@ -20,4 +20,10 @@ class ImportList extends ArrayList<String> {
             }
         }
     }
+
+    ImportList(String... imports) {
+        for (String impt : imports) {
+            this.add(impt)
+        }
+    }
 }

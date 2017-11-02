@@ -28,15 +28,8 @@ class BuitInForDomainMeta extends BuitIn {
         def dateInfo = new DateInfo()
         def imports = new ImportList(classInfo.fields)
         def packageInfo = new PackageInfo(fullName: super.buildPackageName())
-        def generateParams = [
-                "packageInfo"      : super.buildPackageName(),
-                "domainPackageInfo": "${super.buildPackageName()}.domain",
-                "daoPackageInfo"   : "${super.buildPackageName()}.dao",
-                "limitPackageInfo" : "${super.buildPackageName()}.limit"
-        ]
 
         return [
-                "generateParams": generateParams,
                 "packageInfo"   : packageInfo,
                 "classInfo"     : classInfo,
                 "authorInfo"    : authorInfo,

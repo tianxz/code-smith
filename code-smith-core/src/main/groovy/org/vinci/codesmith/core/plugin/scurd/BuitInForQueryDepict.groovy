@@ -26,7 +26,12 @@ class BuitInForQueryDepict extends BuitIn {
         def classInfo = dbMeta2TemplateInfoUtil.mysqlTableMeta2ClassInfo((Table) genDto.dataSource, genDto.ownerConf.aliasNameMap)
         def authorInfo = new AuthorInfo()
         def dateInfo = new DateInfo()
-        def imports = new ImportList(classInfo.fields)
+        def imports = new ImportList(
+                "${super.buildBasePackageName()}.domain.meta.${super.buildClassName()}Meta",
+                'org.vinci.commons.orm.mybatis.scurd.QueryDepict',
+                'java.util.ArrayList',
+                'java.util.HashMap',
+                'java.util.List')
         def packageInfo = new PackageInfo(fullName: super.buildPackageName())
         def generateParams = [
                 "packageInfo"      : super.buildPackageName(),

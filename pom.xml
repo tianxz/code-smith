@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.vinci</groupId>
+    <artifactId>code-smith-build</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>code-smith-core</module>
+        <module>code-smith-test</module>
+    </modules>
+
+    <properties>
+        <spring.boot.version>1.5.8.RELEASE</spring.boot.version>
+
+        <!-- maven repositories -->
+        <nexus.uri>http://ttestplus.jointforce.com:8081</nexus.uri>
+
+        <!--maven plugin-->
+        <compiler.maven.plugin>3.6.1</compiler.maven.plugin>
+        <source.plugin>3.0.1</source.plugin>
+        <dependency.plugin>3.0.1</dependency.plugin>
+        <groovy.plugin>2.0</groovy.plugin>
+        <spring.boot.maven.plugin.version>1.5.2.RELEASE</spring.boot.maven.plugin.version>
+        <spring.boot.maven.plugin.version>1.5.2.RELEASE</spring.boot.maven.plugin.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${compiler.maven.plugin}</version>
+                <configuration>
+                    <source>${compiler.source}</source>
+                    <target>${compiler.target}</target>
+                    <encoding>${compiler.encoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${source.plugin}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${dependency.plugin}</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <!-- JDK 版本 -->
+        <profile>
+            <id>jdk-1.8</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <jdk>1.8</jdk>
+            </activation>
+            <properties>
+                <compiler.source>1.8</compiler.source>
+                <compiler.target>1.8</compiler.target>
+                <compiler.encoding>UTF-8</compiler.encoding>
+            </properties>
+        </profile>
+    </profiles>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>nexus</id>
+            <name>Team Nexus Repository</name>
+            <url>${nexus.uri}/nexus/content/repositories/central/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <repositories>
+        <repository>
+            <id>nexus</id>
+            <name>Team Nexus Repository</name>
+            <url>${nexus.uri}/nexus/content/repositories/central/</url>
+        </repository>
+
+        <repository>
+            <id>vinci-snapshots</id>
+            <name>Vinci Snapshots</name>
+            <url>${nexus.uri}/nexus/content/repositories/vinci-snapshots/</url>
+        </repository>
+    </repositories>
+</project>

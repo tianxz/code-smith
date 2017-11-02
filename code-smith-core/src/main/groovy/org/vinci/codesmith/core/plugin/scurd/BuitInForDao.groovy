@@ -26,22 +26,19 @@ class BuitInForDao extends BuitIn {
         def classInfo = dbMeta2TemplateInfoUtil.mysqlTableMeta2ClassInfo((Table) genDto.dataSource, genDto.ownerConf.aliasNameMap)
         def authorInfo = new AuthorInfo()
         def dateInfo = new DateInfo()
-        def imports = new ImportList(classInfo.fields)
+        def imports = new ImportList(
+                "${super.buildBasePackageName()}.domain.${super.buildClassName()}",
+                'org.vinci.commons.database.block.Limit',
+                'org.vinci.commons.orm.mybatis.scurd.QueryDepict',
+                'org.vinci.commons.orm.mybatis.scurd.UpdateDepict')
         def packageInfo = new PackageInfo(fullName: super.buildPackageName())
-        def generateParams = [
-                "packageInfo"      : super.buildPackageName(),
-                "domainPackageInfo": "${super.buildPackageName()}.domain",
-                "daoPackageInfo"   : "${super.buildPackageName()}.dao",
-                "limitPackageInfo" : "${super.buildPackageName()}.limit"
-        ]
 
         return [
-                "generateParams": generateParams,
-                "packageInfo"   : packageInfo,
-                "classInfo"     : classInfo,
-                "authorInfo"    : authorInfo,
-                "dateInfo"      : dateInfo,
-                "imports"       : imports
+                "packageInfo": packageInfo,
+                "classInfo"  : classInfo,
+                "authorInfo" : authorInfo,
+                "dateInfo"   : dateInfo,
+                "imports"    : imports
         ]
     }
 
