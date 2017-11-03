@@ -16,7 +16,7 @@ package org.vinci.codesmith.test.domain.meta;
 
 /**
  *  元数据
- * Created by vinci on 2017-11-02 17:03:23.
+ * Created by vinci on 2017-11-03 14:36:05.
  */
 public class UserInfoMeta {
     public static final String ID_FIELD_NAME = "id";

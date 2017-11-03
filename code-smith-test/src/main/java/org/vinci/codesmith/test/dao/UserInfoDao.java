@@ -33,11 +33,11 @@ public interface UserInfoDao {
 
     UserInfo querySingle(@Param("queryDepicts") List<QueryDepict> queryDepicts);
 
-    UserInfo queryById(long uuid);
+    UserInfo queryById(long id);
 
     int insertUserInfo(UserInfo UserInfo);
 
-    int updateUserInfo(@Param("uuid") long uuid, @Param("updateDepicts") List<UpdateDepict> updateDepicts);
+    int updateUserInfo(@Param("id") long id, @Param("updateDepicts") List<UpdateDepict> updateDepicts);
 
-    int deleteUserInfo(long uuid);
+    int deleteUserInfo(long id);
 }

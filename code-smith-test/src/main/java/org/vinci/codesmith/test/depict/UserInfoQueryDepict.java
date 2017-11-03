@@ -16,29 +16,29 @@ package org.vinci.codesmith.test.depict;
 
 import org.vinci.codesmith.test.domain.meta.UserInfoMeta;
 import org.vinci.commons.orm.mybatis.scurd.QueryDepict;
+import org.vinci.commons.orm.mybatis.scurd.CurdAbstractDepictMap;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
  *  查询配置
- * Created by vinci on 2017-11-02 17:03:23.
+ * Created by vinci on 2017-11-03 14:36:05.
  */
-public class UserInfoQueryDepict extends HashMap<String, QueryDepict> {
+public class UserInfoQueryDepict extends CurdAbstractDepictMap<QueryDepict> {
 
     public UserInfoQueryDepict() {
-        this.put(UserInfoMeta.ID_FIELD_NAME, new QueryDepict("ID", "id"));
-        this.put(UserInfoMeta.FIRST_NAME_FIELD_NAME, new QueryDepict("FIRST_NAME", "firstName"));
-        this.put(UserInfoMeta.LAST_NAME_FIELD_NAME, new QueryDepict("LAST_NAME", "lastName"));
-        this.put(UserInfoMeta.LOGIN_NAME_FIELD_NAME, new QueryDepict("LOGIN_NAME", "loginName"));
-        this.put(UserInfoMeta.LOGIN_PASSWORD_FIELD_NAME, new QueryDepict("LOGIN_PASSWORD", "loginPassword"));
-        this.put(UserInfoMeta.GENDER_FIELD_NAME, new QueryDepict("GENDER", "gender"));
-        this.put(UserInfoMeta.EMAIL_FIELD_NAME, new QueryDepict("EMAIL", "email"));
-        this.put(UserInfoMeta.NATIONAL_IDENTIFIER_FIELD_NAME, new QueryDepict("NATIONAL_IDENTIFIER", "nationalIdentifier"));
-        this.put(UserInfoMeta.CELL_PHONE_FIELD_NAME, new QueryDepict("CELL_PHONE", "cellPhone"));
-        this.put(UserInfoMeta.PEOPLE_TYPE_FIELD_NAME, new QueryDepict("PEOPLE_TYPE", "peopleType"));
-        this.put(UserInfoMeta.LAST_LOGIN_TIME_FIELD_NAME, new QueryDepict("LAST_LOGIN_TIME", "lastLoginTime"));
-        this.put(UserInfoMeta.LAST_LOGIN_IP_FIELD_NAME, new QueryDepict("LAST_LOGIN_IP", "lastLoginIp"));
+        this.put(UserInfoMeta.ID_FIELD_NAME, new QueryDepict("id", "ID", this));
+        this.put(UserInfoMeta.FIRST_NAME_FIELD_NAME, new QueryDepict("firstName", "FIRST_NAME", this));
+        this.put(UserInfoMeta.LAST_NAME_FIELD_NAME, new QueryDepict("lastName", "LAST_NAME", this));
+        this.put(UserInfoMeta.LOGIN_NAME_FIELD_NAME, new QueryDepict("loginName", "LOGIN_NAME", this));
+        this.put(UserInfoMeta.LOGIN_PASSWORD_FIELD_NAME, new QueryDepict("loginPassword", "LOGIN_PASSWORD", this));
+        this.put(UserInfoMeta.GENDER_FIELD_NAME, new QueryDepict("gender", "GENDER", this));
+        this.put(UserInfoMeta.EMAIL_FIELD_NAME, new QueryDepict("email", "EMAIL", this));
+        this.put(UserInfoMeta.NATIONAL_IDENTIFIER_FIELD_NAME, new QueryDepict("nationalIdentifier", "NATIONAL_IDENTIFIER", this));
+        this.put(UserInfoMeta.CELL_PHONE_FIELD_NAME, new QueryDepict("cellPhone", "CELL_PHONE", this));
+        this.put(UserInfoMeta.PEOPLE_TYPE_FIELD_NAME, new QueryDepict("peopleType", "PEOPLE_TYPE", this));
+        this.put(UserInfoMeta.LAST_LOGIN_TIME_FIELD_NAME, new QueryDepict("lastLoginTime", "LAST_LOGIN_TIME", this));
+        this.put(UserInfoMeta.LAST_LOGIN_IP_FIELD_NAME, new QueryDepict("lastLoginIp", "LAST_LOGIN_IP", this));
     }
 
     /**
