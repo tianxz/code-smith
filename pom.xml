@@ -16,6 +16,7 @@
 
     <properties>
         <spring.boot.version>1.5.8.RELEASE</spring.boot.version>
+        <spring.version>4.3.12.RELEASE</spring.version>
 
         <!-- maven repositories -->
         <nexus.uri>http://ttestplus.jointforce.com:8081</nexus.uri>

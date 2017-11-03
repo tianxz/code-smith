@@ -1,5 +1,6 @@
 package org.vinci.codesmith.core.collector.base
 
+import jodd.util.NameValue
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.PostMapping
@@ -44,6 +45,9 @@ class ShellController {
         if (!oneKeyConf.engineType) {
             oneKeyConf.engineType = EngineType.FREEMARKER
         }
+        if (!oneKeyConf.primaryKey) {
+            oneKeyConf.primaryKey = new NameValue('id', 'long')
+        }
 
         for (GenDto genDto : oneKeyConf.genDtoList) {
             Table table = tableService.getTable(udsUtil.defaultDbName, oneKeyConf.tableName)
@@ -53,6 +57,9 @@ class ShellController {
             }
             if (!genDto.engineType) {
                 genDto.engineType = oneKeyConf.engineType
+            }
+            if (!genDto.primaryKey) {
+                genDto.primaryKey = oneKeyConf.primaryKey
             }
 
             genDto.ownerConf = oneKeyConf

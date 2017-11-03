@@ -134,11 +134,13 @@ abstract class BuitIn {
         GenDto genDto = this.getLocalGenDto()
         if (!genDto.ownerConf.packageName) throw new VinciException("尚未配置 package 信息")
 
-        String tailPackageName
-        if (buildDirName().substring(0, 1) == '/' || buildDirName().substring(0, 1) == '\\') {
-            tailPackageName = buildDirName().substring(1).replace('/', '.')
-        } else {
-            tailPackageName = buildDirName().replace('/', '.')
+        String tailPackageName = ''
+        if (buildDirName() && buildDirName().length()) {
+            if (buildDirName().substring(0, 1) == '/' || buildDirName().substring(0, 1) == '\\') {
+                tailPackageName = buildDirName().substring(1).replace('/', '.')
+            } else {
+                tailPackageName = buildDirName().replace('/', '.')
+            }
         }
 
         return genDto.ownerConf.packageName + "." + tailPackageName

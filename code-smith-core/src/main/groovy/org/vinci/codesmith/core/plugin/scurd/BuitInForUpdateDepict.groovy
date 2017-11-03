@@ -29,8 +29,8 @@ class BuitInForUpdateDepict extends BuitIn {
         def imports = new ImportList(
                 "${super.buildBasePackageName()}.domain.meta.${super.buildClassName()}Meta",
                 'org.vinci.commons.orm.mybatis.scurd.UpdateDepict',
+                'org.vinci.commons.orm.mybatis.scurd.CurdAbstractDepictMap',
                 'java.util.ArrayList',
-                'java.util.HashMap',
                 'java.util.List')
         def packageInfo = new PackageInfo(fullName: super.buildPackageName())
 

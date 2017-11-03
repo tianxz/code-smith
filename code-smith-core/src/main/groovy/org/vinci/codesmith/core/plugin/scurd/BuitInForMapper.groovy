@@ -16,7 +16,6 @@ import org.vinci.codesmith.core.plugin.scurd.info.PackageInfo
 @Component
 class BuitInForMapper extends BuitIn {
     private final String                  BEAN_NAME     = 'mapper'
-    private final String                  DIR_NAME      = 'mapper'
     private final String                  TEMPLATE_NAME = 'scurd/mapper'
     @Autowired
     private       DbMeta2TemplateInfoUtil dbMeta2TemplateInfoUtil
@@ -28,26 +27,25 @@ class BuitInForMapper extends BuitIn {
         def dateInfo = new DateInfo()
         def imports = new ImportList(classInfo.fields)
         def packageInfo = new PackageInfo(fullName: super.buildPackageName())
-        def generateParams = [
-                "packageInfo"      : super.buildPackageName(),
-                "domainPackageInfo": "${super.buildPackageName()}.domain",
-                "daoPackageInfo"   : "${super.buildPackageName()}.dao",
-                "limitPackageInfo" : "${super.buildPackageName()}.limit"
+        def ext = [
+                "domainPackage": "${super.buildBasePackageName()}.domain",
+                "daoPackage"   : "${super.buildBasePackageName()}.dao",
+                'primaryKey'   : genDto.primaryKey
         ]
 
         return [
-                "generateParams": generateParams,
-                "packageInfo"   : packageInfo,
-                "classInfo"     : classInfo,
-                "authorInfo"    : authorInfo,
-                "dateInfo"      : dateInfo,
-                "imports"       : imports
+                "ext"        : ext,
+                "packageInfo": packageInfo,
+                "classInfo"  : classInfo,
+                "authorInfo" : authorInfo,
+                "dateInfo"   : dateInfo,
+                "imports"    : imports
         ]
     }
 
     @Override
     String buildDirName() {
-        return DIR_NAME
+        return ''
     }
 
     @Override

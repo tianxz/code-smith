@@ -32,13 +32,17 @@ class BuitInForDao extends BuitIn {
                 'org.vinci.commons.orm.mybatis.scurd.QueryDepict',
                 'org.vinci.commons.orm.mybatis.scurd.UpdateDepict')
         def packageInfo = new PackageInfo(fullName: super.buildPackageName())
+        def ext = [
+                'primaryKey': genDto.primaryKey
+        ]
 
         return [
                 "packageInfo": packageInfo,
                 "classInfo"  : classInfo,
                 "authorInfo" : authorInfo,
                 "dateInfo"   : dateInfo,
-                "imports"    : imports
+                "imports"    : imports,
+                "ext"        : ext
         ]
     }
 
