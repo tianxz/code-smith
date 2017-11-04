@@ -22,11 +22,11 @@ import org.vinci.commons.core.serializer.jackson.JDateTimeDeserializer;
 import org.vinci.commons.core.serializer.jackson.JDateTimeSerializer;
 
 /**
- * 
- * Created by vinci on 2017-11-03 14:36:05.
+ * 用户信息表
+ * Created by vinci on 2017-11-04 18:01:07.
  */
 public class UserInfo {
-    
+    //id
     @JsonSerialize(using = ToStringSerializer.class)
     private long id;
 
@@ -36,7 +36,7 @@ public class UserInfo {
     //名
     private String lastName;
 
-    //登录账号
+    //登录名
     private String loginName;
 
     //登录密码
@@ -51,7 +51,7 @@ public class UserInfo {
     //身份证号
     private String nationalIdentifier;
 
-    //手机
+    //手机号
     private String cellPhone;
 
     //用户状态
@@ -62,13 +62,19 @@ public class UserInfo {
     @JsonSerialize(using = JDateTimeSerializer.class)
     private JDateTime lastLoginTime;
 
-    //最后登录IP
+    //最后登录日期
     private String lastLoginIp;
 
+    /**
+     * 获取 id
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * 设置 id
+     */
     public UserInfo setId(long id) {
         this.id = id;
         return this;
@@ -105,14 +111,14 @@ public class UserInfo {
     }
 
     /**
-     * 获取 登录账号
+     * 获取 登录名
      */
     public String getLoginName() {
         return loginName;
     }
 
     /**
-     * 设置 登录账号
+     * 设置 登录名
      */
     public UserInfo setLoginName(String loginName) {
         this.loginName = loginName;
@@ -180,14 +186,14 @@ public class UserInfo {
     }
 
     /**
-     * 获取 手机
+     * 获取 手机号
      */
     public String getCellPhone() {
         return cellPhone;
     }
 
     /**
-     * 设置 手机
+     * 设置 手机号
      */
     public UserInfo setCellPhone(String cellPhone) {
         this.cellPhone = cellPhone;
@@ -225,14 +231,14 @@ public class UserInfo {
     }
 
     /**
-     * 获取 最后登录IP
+     * 获取 最后登录日期
      */
     public String getLastLoginIp() {
         return lastLoginIp;
     }
 
     /**
-     * 设置 最后登录IP
+     * 设置 最后登录日期
      */
     public UserInfo setLastLoginIp(String lastLoginIp) {
         this.lastLoginIp = lastLoginIp;

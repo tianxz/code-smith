@@ -21,8 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *  更新配置
- * Created by vinci on 2017-11-03 14:36:05.
+ * 用户信息表 更新配置
+ * Created by vinci on 2017-11-04 18:01:08.
  */
 public class UserInfoUpdateDepict extends CurdAbstractDepictMap<UpdateDepict> {
 
@@ -61,6 +61,9 @@ public class UserInfoUpdateDepict extends CurdAbstractDepictMap<UpdateDepict> {
         }
     }
 
+    /**
+     * 获取更新 [id] 的 UpdateDepict
+     */
     public UpdateDepict getUpdateDepictForId() {
         return this.get(UserInfoMeta.ID_FIELD_NAME);
     }
@@ -80,7 +83,7 @@ public class UserInfoUpdateDepict extends CurdAbstractDepictMap<UpdateDepict> {
     }
 
     /**
-     * 获取更新 [登录账号] 的 UpdateDepict
+     * 获取更新 [登录名] 的 UpdateDepict
      */
     public UpdateDepict getUpdateDepictForLoginName() {
         return this.get(UserInfoMeta.LOGIN_NAME_FIELD_NAME);
@@ -115,7 +118,7 @@ public class UserInfoUpdateDepict extends CurdAbstractDepictMap<UpdateDepict> {
     }
 
     /**
-     * 获取更新 [手机] 的 UpdateDepict
+     * 获取更新 [手机号] 的 UpdateDepict
      */
     public UpdateDepict getUpdateDepictForCellPhone() {
         return this.get(UserInfoMeta.CELL_PHONE_FIELD_NAME);
@@ -136,7 +139,7 @@ public class UserInfoUpdateDepict extends CurdAbstractDepictMap<UpdateDepict> {
     }
 
     /**
-     * 获取更新 [最后登录IP] 的 UpdateDepict
+     * 获取更新 [最后登录日期] 的 UpdateDepict
      */
     public UpdateDepict getUpdateDepictForLastLoginIp() {
         return this.get(UserInfoMeta.LAST_LOGIN_IP_FIELD_NAME);

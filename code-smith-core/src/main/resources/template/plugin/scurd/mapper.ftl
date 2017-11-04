@@ -25,10 +25,20 @@
             <foreach collection="queryDepicts" item="sqlQuery">
                 <if test="sqlQuery.isInclude">
                     <if test="sqlQuery.operator.toString() == 'EQ'">
-                        AND ${'$'}${'{'}${'sqlQuery.columnName'}${'}'} = ${'#'}${'{'}${'sqlQuery.value'}${'}'}
+                        <if test="sqlQuery.value == null">
+                            AND ${'$'}${'{'}${'sqlQuery.columnName'}${'}'} IS NULL
+                        </if>
+                        <if test="sqlQuery.value != null">
+                            AND ${'$'}${'{'}${'sqlQuery.columnName'}${'}'} = ${'#'}${'{'}${'sqlQuery.value'}${'}'}
+                        </if>
                     </if>
                     <if test="sqlQuery.operator.toString() == 'NEQ'">
-                        AND ${'$'}${'{'}${'sqlQuery.columnName'}${'}'} &lt;&gt; ${'#'}${'{'}${'sqlQuery.value'}${'}'}
+                        <if test="sqlQuery.value == null">
+                            AND ${'$'}${'{'}${'sqlQuery.columnName'}${'}'} IS NOT NULL
+                        </if>
+                        <if test="sqlQuery.value != null">
+                            AND ${'$'}${'{'}${'sqlQuery.columnName'}${'}'} &lt;&gt; ${'#'}${'{'}${'sqlQuery.value'}${'}'}
+                        </if>
                     </if>
                     <if test="sqlQuery.operator.toString() == 'IN'">
                         AND ${'$'}${'{'}${'sqlQuery.columnName'}${'}'} IN

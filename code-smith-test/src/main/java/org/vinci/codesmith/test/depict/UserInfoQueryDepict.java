@@ -21,8 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *  查询配置
- * Created by vinci on 2017-11-03 14:36:05.
+ * 用户信息表 查询配置
+ * Created by vinci on 2017-11-04 18:01:08.
  */
 public class UserInfoQueryDepict extends CurdAbstractDepictMap<QueryDepict> {
 
@@ -61,6 +61,9 @@ public class UserInfoQueryDepict extends CurdAbstractDepictMap<QueryDepict> {
         }
     }
 
+    /**
+     * 获取查询 [id] 的 QueryDepict
+     */
     public QueryDepict getQueryDepictForId() {
         return this.get(UserInfoMeta.ID_FIELD_NAME);
     }
@@ -80,7 +83,7 @@ public class UserInfoQueryDepict extends CurdAbstractDepictMap<QueryDepict> {
     }
 
     /**
-     * 获取查询 [登录账号] 的 QueryDepict
+     * 获取查询 [登录名] 的 QueryDepict
      */
     public QueryDepict getQueryDepictForLoginName() {
         return this.get(UserInfoMeta.LOGIN_NAME_FIELD_NAME);
@@ -115,7 +118,7 @@ public class UserInfoQueryDepict extends CurdAbstractDepictMap<QueryDepict> {
     }
 
     /**
-     * 获取查询 [手机] 的 QueryDepict
+     * 获取查询 [手机号] 的 QueryDepict
      */
     public QueryDepict getQueryDepictForCellPhone() {
         return this.get(UserInfoMeta.CELL_PHONE_FIELD_NAME);
@@ -136,7 +139,7 @@ public class UserInfoQueryDepict extends CurdAbstractDepictMap<QueryDepict> {
     }
 
     /**
-     * 获取查询 [最后登录IP] 的 QueryDepict
+     * 获取查询 [最后登录日期] 的 QueryDepict
      */
     public QueryDepict getQueryDepictForLastLoginIp() {
         return this.get(UserInfoMeta.LAST_LOGIN_IP_FIELD_NAME);

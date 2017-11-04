@@ -15,10 +15,13 @@
 package org.vinci.codesmith.test.domain.meta;
 
 /**
- *  元数据
- * Created by vinci on 2017-11-03 14:36:05.
+ * 用户信息表 元数据
+ * Created by vinci on 2017-11-04 18:01:08.
  */
 public class UserInfoMeta {
+    /**
+     * id 字段名
+     */
     public static final String ID_FIELD_NAME = "id";
 
     /**
@@ -32,7 +35,7 @@ public class UserInfoMeta {
     public static final String LAST_NAME_FIELD_NAME = "lastName";
 
     /**
-     * 登录账号 字段名
+     * 登录名 字段名
      */
     public static final String LOGIN_NAME_FIELD_NAME = "loginName";
 
@@ -57,7 +60,7 @@ public class UserInfoMeta {
     public static final String NATIONAL_IDENTIFIER_FIELD_NAME = "nationalIdentifier";
 
     /**
-     * 手机 字段名
+     * 手机号 字段名
      */
     public static final String CELL_PHONE_FIELD_NAME = "cellPhone";
 
@@ -72,11 +75,14 @@ public class UserInfoMeta {
     public static final String LAST_LOGIN_TIME_FIELD_NAME = "lastLoginTime";
 
     /**
-     * 最后登录IP 字段名
+     * 最后登录日期 字段名
      */
     public static final String LAST_LOGIN_IP_FIELD_NAME = "lastLoginIp";
 
 
+    /**
+     * id 列名
+     */
     public static final String ID_COLUMN_NAME = "ID";
 
     /**
@@ -90,7 +96,7 @@ public class UserInfoMeta {
     public static final String LAST_NAME_COLUMN_NAME = "LAST_NAME";
 
     /**
-     * 登录账号 列名
+     * 登录名 列名
      */
     public static final String LOGIN_NAME_COLUMN_NAME = "LOGIN_NAME";
 
@@ -115,7 +121,7 @@ public class UserInfoMeta {
     public static final String NATIONAL_IDENTIFIER_COLUMN_NAME = "NATIONAL_IDENTIFIER";
 
     /**
-     * 手机 列名
+     * 手机号 列名
      */
     public static final String CELL_PHONE_COLUMN_NAME = "CELL_PHONE";
 
@@ -130,7 +136,7 @@ public class UserInfoMeta {
     public static final String LAST_LOGIN_TIME_COLUMN_NAME = "LAST_LOGIN_TIME";
 
     /**
-     * 最后登录IP 列名
+     * 最后登录日期 列名
      */
     public static final String LAST_LOGIN_IP_COLUMN_NAME = "LAST_LOGIN_IP";
 
