@@ -1,15 +1,19 @@
 package org.vinci.codesmith.test;
 
-import jodd.datetime.JDateTime;
+import org.apache.ibatis.exceptions.TooManyResultsException;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.vinci.codesmith.test.dao.UserInfoDao;
 import org.vinci.codesmith.test.depict.UserInfoQueryDepict;
 import org.vinci.codesmith.test.depict.UserInfoUpdateDepict;
 import org.vinci.codesmith.test.domain.UserInfo;
+import org.vinci.codesmith.test.domain.meta.UserInfoMeta;
 import org.vinci.commons.core.datetime.JDate;
 import org.vinci.commons.database.JdbcOperator;
+import org.vinci.commons.database.block.Limit;
+import org.vinci.commons.orm.mybatis.scurd.QueryDepict;
 
 import java.util.List;
 
@@ -65,5 +69,52 @@ public class TestDao extends DataBaseTest {
         List result = userInfoDao.query(queryDepicts, null);
 
         Assert.assertEquals(1, result.size());
+    }
+
+    @Test
+    public void testQueryTotal() {
+        long result = userInfoDao.queryTotal(null);
+
+        Assert.assertEquals(2, result);
+    }
+
+    @Test
+    public void testQueryAll() {
+        List<UserInfo> result = userInfoDao.queryAll(Limit.instance(1, 1));
+
+        Assert.assertEquals(1, result.size());
+
+        result = userInfoDao.queryAll(null);
+
+        Assert.assertEquals(2, result.size());
+    }
+
+    /**
+     * queryDepict 使用常量
+     * queryDepict 在xml中可为null
+     * 优化 toList() 函数
+     * 可以重复查询 column name
+     */
+    @Test
+    public void testQuerySingle() {
+        try {
+            userInfoDao.querySingle(null);
+        } catch (TooManyResultsException e) {
+            // ignore
+        } catch (MyBatisSystemException e) {
+            // ignore
+        } catch (Exception e) {
+            throw new RuntimeException("单元测试失败", e);
+        }
+
+
+        UserInfoQueryDepict queryDepicts = new UserInfoQueryDepict();
+        queryDepicts.put(UserInfoMeta.LOGIN_NAME_FIELD_NAME + "_EX0", new QueryDepict(UserInfoMeta.LOGIN_NAME_FIELD_NAME, UserInfoMeta.LOGIN_NAME_COLUMN_NAME, queryDepicts));
+
+        queryDepicts.getQueryDepictForLoginName().setOperator(JdbcOperator.LIKE).setValue("tm").include().getOwnerDepictMap(UserInfoQueryDepict.class);
+        queryDepicts.get(UserInfoMeta.LOGIN_NAME_FIELD_NAME + "_EX0").setOperator(JdbcOperator.EQ).setValue("tms").include();
+
+        UserInfo result = userInfoDao.querySingle(queryDepicts.toList());
+        Assert.assertNotEquals(result, null);
     }
 }
