@@ -46,6 +46,9 @@ public class TestDao extends DataBaseTest {
         Assert.assertEquals(1, result);
     }
 
+    /**
+     * 传统更新
+     */
     @Test
     public void testUpdate() {
         List updateDepicts = new UserInfoUpdateDepict()
@@ -103,7 +106,6 @@ public class TestDao extends DataBaseTest {
         } catch (Exception e) {
             throw new RuntimeException("单元测试失败", e);
         }
-
 
         UserInfoQueryDepict queryDepicts = new UserInfoQueryDepict();
         queryDepicts.put(UserInfoMeta.LOGIN_NAME_FIELD_NAME + "_EX0",
