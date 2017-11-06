@@ -23,7 +23,7 @@ import org.vinci.commons.core.serializer.jackson.JDateTimeSerializer;
 
 /**
  * 用户信息表
- * Created by vinci on 2017-11-04 18:01:07.
+ * Created by vinci on 2017-11-06 11:10:11.
  */
 public class UserInfo {
     //id

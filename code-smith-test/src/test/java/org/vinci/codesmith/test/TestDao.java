@@ -29,7 +29,10 @@ public class TestDao extends DataBaseTest {
 
     @Test
     public void testInsert() {
-        UserInfo userInfo = new UserInfo().setId(1).setLoginName("maintk").setLoginPassword("123456");
+        UserInfo userInfo = new UserInfo()
+                .setId(1)
+                .setLoginName("maintk")
+                .setLoginPassword("123456");
 
         int result = userInfoDao.insertUserInfo(userInfo);
 
@@ -89,12 +92,6 @@ public class TestDao extends DataBaseTest {
         Assert.assertEquals(2, result.size());
     }
 
-    /**
-     * queryDepict 使用常量
-     * queryDepict 在xml中可为null
-     * 优化 toList() 函数
-     * 可以重复查询 column name
-     */
     @Test
     public void testQuerySingle() {
         try {
@@ -109,10 +106,11 @@ public class TestDao extends DataBaseTest {
 
 
         UserInfoQueryDepict queryDepicts = new UserInfoQueryDepict();
-        queryDepicts.put(UserInfoMeta.LOGIN_NAME_FIELD_NAME + "_EX0", new QueryDepict(UserInfoMeta.LOGIN_NAME_FIELD_NAME, UserInfoMeta.LOGIN_NAME_COLUMN_NAME, queryDepicts));
+        queryDepicts.put(UserInfoMeta.LOGIN_NAME_FIELD_NAME + "_EX0",
+                new QueryDepict(UserInfoMeta.LOGIN_NAME_FIELD_NAME, UserInfoMeta.LOGIN_NAME_COLUMN_NAME, queryDepicts)
+                        .setOperator(JdbcOperator.EQ).setValue("tms").include());
 
         queryDepicts.getQueryDepictForLoginName().setOperator(JdbcOperator.LIKE).setValue("tm").include().getOwnerDepictMap(UserInfoQueryDepict.class);
-        queryDepicts.get(UserInfoMeta.LOGIN_NAME_FIELD_NAME + "_EX0").setOperator(JdbcOperator.EQ).setValue("tms").include();
 
         UserInfo result = userInfoDao.querySingle(queryDepicts.toList());
         Assert.assertNotEquals(result, null);

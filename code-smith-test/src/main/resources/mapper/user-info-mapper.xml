@@ -37,47 +37,45 @@
         <if test="queryDepicts != null">
             <where>
                 <foreach collection="queryDepicts" item="sqlQuery">
-                    <if test="sqlQuery.isInclude">
-                        <if test="sqlQuery.operator.toString() == 'EQ'">
-                            <if test="sqlQuery.value == null">
-                                AND ${sqlQuery.columnName} IS NULL
+                    <if test="sqlQuery.operator.toString() == 'EQ'">
+                        <if test="sqlQuery.value == null">
+                            AND ${sqlQuery.columnName} IS NULL
+                        </if>
+                        <if test="sqlQuery.value != null">
+                            AND ${sqlQuery.columnName} = #{sqlQuery.value}
+                        </if>
+                    </if>
+                    <if test="sqlQuery.operator.toString() == 'NEQ'">
+                        <if test="sqlQuery.value == null">
+                            AND ${sqlQuery.columnName} IS NOT NULL
+                        </if>
+                        <if test="sqlQuery.value != null">
+                            AND ${sqlQuery.columnName} &lt;&gt; #{sqlQuery.value}
+                        </if>
+                    </if>
+                    <if test="sqlQuery.operator.toString() == 'IN'">
+                        AND ${sqlQuery.columnName} IN
+                        <foreach collection="sqlQuery.multiValue" item="value" open="(" close=")" separator=",">
+                        #{value}
+                        </foreach>
+                    </if>
+                    <if test="sqlQuery.operator.toString() == 'LIKE'">
+                        <bind name="_param1" value="'%' + sqlQuery.value + '%'"/>
+                        AND ${sqlQuery.columnName} LIKE #{_param1}
+                    </if>
+                    <if test="sqlQuery.operator.toString() == 'AND'">
+                        AND (${sqlQuery.columnName} &amp; #{sqlQuery.value} = #{sqlQuery.value})
+                    </if>
+                    <if test="sqlQuery.operator.toString() == 'BETWEEN'">
+                        <!--X >= value and X <= value-->
+                        <foreach collection="sqlQuery.multiValue" item="value" index="index">
+                            <if test="index == 0">
+                                AND ${sqlQuery.columnName} &gt;= #{value}
                             </if>
-                            <if test="sqlQuery.value != null">
-                                AND ${sqlQuery.columnName} = #{sqlQuery.value}
+                            <if test="index == 1">
+                                AND ${sqlQuery.columnName} &lt;= #{value}
                             </if>
-                        </if>
-                        <if test="sqlQuery.operator.toString() == 'NEQ'">
-                            <if test="sqlQuery.value == null">
-                                AND ${sqlQuery.columnName} IS NOT NULL
-                            </if>
-                            <if test="sqlQuery.value != null">
-                                AND ${sqlQuery.columnName} &lt;&gt; #{sqlQuery.value}
-                            </if>
-                        </if>
-                        <if test="sqlQuery.operator.toString() == 'IN'">
-                            AND ${sqlQuery.columnName} IN
-                            <foreach collection="sqlQuery.multiValue" item="value" open="(" close=")" separator=",">
-                                #{value}
-                            </foreach>
-                        </if>
-                        <if test="sqlQuery.operator.toString() == 'LIKE'">
-                            <bind name="_param1" value="'%' + sqlQuery.value + '%'"/>
-                            AND ${sqlQuery.columnName} LIKE #{_param1}
-                        </if>
-                        <if test="sqlQuery.operator.toString() == 'AND'">
-                            AND (${sqlQuery.columnName} &amp; #{sqlQuery.value} = #{sqlQuery.value})
-                        </if>
-                        <if test="sqlQuery.operator.toString() == 'BETWEEN'">
-                            <!--X >= value and X <= value-->
-                            <foreach collection="sqlQuery.multiValue" item="value" index="index">
-                                <if test="index == 0">
-                                    AND ${sqlQuery.columnName} &gt;= #{value}
-                                </if>
-                                <if test="index == 1">
-                                    AND ${sqlQuery.columnName} &lt;= #{value}
-                                </if>
-                            </foreach>
-                        </if>
+                        </foreach>
                     </if>
                 </foreach>
             </where>

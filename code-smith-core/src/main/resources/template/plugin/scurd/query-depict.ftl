@@ -14,28 +14,8 @@ public class ${classInfo.name}QueryDepict extends CurdAbstractDepictMap<QueryDep
 
     public ${classInfo.name}QueryDepict() {
 <#list classInfo.fields as field>
-        this.put(${classInfo.name}Meta.${field.sqlName}_FIELD_NAME, new QueryDepict("${field.name}", "${field.sqlName}", this));
+        this.put(${classInfo.name}Meta.${field.sqlName}_FIELD_NAME, new QueryDepict(${classInfo.name}Meta.${field.sqlName}_FIELD_NAME, ${classInfo.name}Meta.${field.sqlName}_COLUMN_NAME, this));
 </#list>
-    }
-
-    /**
-     * 转换 QueryDepict map 为 list
-     */
-    public List<QueryDepict> toList() {
-        List<QueryDepict> lst = new ArrayList<>();
-        for (String key : this.keySet()) {
-            lst.add(this.get(key));
-        }
-        return lst;
-    }
-
-    /**
-     * 重置所有 QueryDepict
-     */
-    public void resetAll() {
-        for (String key : this.keySet()) {
-            this.get(key).reset();
-        }
     }
 
 <#list classInfo.fields as field>

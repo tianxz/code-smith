@@ -14,28 +14,8 @@ public class ${classInfo.name}UpdateDepict extends CurdAbstractDepictMap<UpdateD
 
     public ${classInfo.name}UpdateDepict() {
 <#list classInfo.fields as field>
-        this.put(${classInfo.name}Meta.${field.sqlName}_FIELD_NAME, new UpdateDepict("${field.name}", "${field.sqlName}", this));
+        this.put(${classInfo.name}Meta.${field.sqlName}_FIELD_NAME, new UpdateDepict(${classInfo.name}Meta.${field.sqlName}_FIELD_NAME, ${classInfo.name}Meta.${field.sqlName}_COLUMN_NAME, this));
 </#list>
-    }
-
-	/**
-     * 转换 UpdateDepict map 为 list
-     */
-    public List<UpdateDepict> toList() {
-        List<UpdateDepict> lst = new ArrayList<>();
-        for (String key : this.keySet()) {
-            lst.add(this.get(key));
-        }
-        return lst;
-    }
-	
-    /**
-     * 重置所有 UpdateDepict
-     */
-    public void resetAll() {
-        for (String key : this.keySet()) {
-            this.get(key).reset();
-        }
     }
 
 <#list classInfo.fields as field>

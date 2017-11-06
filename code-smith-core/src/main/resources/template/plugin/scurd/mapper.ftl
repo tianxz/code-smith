@@ -21,9 +21,9 @@
     </sql>
 
     <sql id="where">
-        <where>
-            <foreach collection="queryDepicts" item="sqlQuery">
-                <if test="sqlQuery.isInclude">
+        <if test="queryDepicts != null">
+            <where>
+                <foreach collection="queryDepicts" item="sqlQuery">
                     <if test="sqlQuery.operator.toString() == 'EQ'">
                         <if test="sqlQuery.value == null">
                             AND ${'$'}${'{'}${'sqlQuery.columnName'}${'}'} IS NULL
@@ -64,9 +64,9 @@
                             </if>
                         </foreach>
                     </if>
-                </if>
-            </foreach>
-        </where>
+                </foreach>
+            </where>
+        </if>
     </sql>
 
     <#if classInfo.comment??><!-- 查询${classInfo.comment}总行数 --></#if>

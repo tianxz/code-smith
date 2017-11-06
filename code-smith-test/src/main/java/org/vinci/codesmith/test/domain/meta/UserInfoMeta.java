@@ -16,7 +16,7 @@ package org.vinci.codesmith.test.domain.meta;
 
 /**
  * 用户信息表 元数据
- * Created by vinci on 2017-11-04 18:01:08.
+ * Created by vinci on 2017-11-06 11:10:12.
  */
 public class UserInfoMeta {
     /**

@@ -22,43 +22,23 @@ import java.util.List;
 
 /**
  * 用户信息表 更新配置
- * Created by vinci on 2017-11-04 18:01:08.
+ * Created by vinci on 2017-11-06 11:10:12.
  */
 public class UserInfoUpdateDepict extends CurdAbstractDepictMap<UpdateDepict> {
 
     public UserInfoUpdateDepict() {
-        this.put(UserInfoMeta.ID_FIELD_NAME, new UpdateDepict("id", "ID", this));
-        this.put(UserInfoMeta.FIRST_NAME_FIELD_NAME, new UpdateDepict("firstName", "FIRST_NAME", this));
-        this.put(UserInfoMeta.LAST_NAME_FIELD_NAME, new UpdateDepict("lastName", "LAST_NAME", this));
-        this.put(UserInfoMeta.LOGIN_NAME_FIELD_NAME, new UpdateDepict("loginName", "LOGIN_NAME", this));
-        this.put(UserInfoMeta.LOGIN_PASSWORD_FIELD_NAME, new UpdateDepict("loginPassword", "LOGIN_PASSWORD", this));
-        this.put(UserInfoMeta.GENDER_FIELD_NAME, new UpdateDepict("gender", "GENDER", this));
-        this.put(UserInfoMeta.EMAIL_FIELD_NAME, new UpdateDepict("email", "EMAIL", this));
-        this.put(UserInfoMeta.NATIONAL_IDENTIFIER_FIELD_NAME, new UpdateDepict("nationalIdentifier", "NATIONAL_IDENTIFIER", this));
-        this.put(UserInfoMeta.CELL_PHONE_FIELD_NAME, new UpdateDepict("cellPhone", "CELL_PHONE", this));
-        this.put(UserInfoMeta.PEOPLE_TYPE_FIELD_NAME, new UpdateDepict("peopleType", "PEOPLE_TYPE", this));
-        this.put(UserInfoMeta.LAST_LOGIN_TIME_FIELD_NAME, new UpdateDepict("lastLoginTime", "LAST_LOGIN_TIME", this));
-        this.put(UserInfoMeta.LAST_LOGIN_IP_FIELD_NAME, new UpdateDepict("lastLoginIp", "LAST_LOGIN_IP", this));
-    }
-
-	/**
-     * 转换 UpdateDepict map 为 list
-     */
-    public List<UpdateDepict> toList() {
-        List<UpdateDepict> lst = new ArrayList<>();
-        for (String key : this.keySet()) {
-            lst.add(this.get(key));
-        }
-        return lst;
-    }
-	
-    /**
-     * 重置所有 UpdateDepict
-     */
-    public void resetAll() {
-        for (String key : this.keySet()) {
-            this.get(key).reset();
-        }
+        this.put(UserInfoMeta.ID_FIELD_NAME, new UpdateDepict(UserInfoMeta.ID_FIELD_NAME, UserInfoMeta.ID_COLUMN_NAME, this));
+        this.put(UserInfoMeta.FIRST_NAME_FIELD_NAME, new UpdateDepict(UserInfoMeta.FIRST_NAME_FIELD_NAME, UserInfoMeta.FIRST_NAME_COLUMN_NAME, this));
+        this.put(UserInfoMeta.LAST_NAME_FIELD_NAME, new UpdateDepict(UserInfoMeta.LAST_NAME_FIELD_NAME, UserInfoMeta.LAST_NAME_COLUMN_NAME, this));
+        this.put(UserInfoMeta.LOGIN_NAME_FIELD_NAME, new UpdateDepict(UserInfoMeta.LOGIN_NAME_FIELD_NAME, UserInfoMeta.LOGIN_NAME_COLUMN_NAME, this));
+        this.put(UserInfoMeta.LOGIN_PASSWORD_FIELD_NAME, new UpdateDepict(UserInfoMeta.LOGIN_PASSWORD_FIELD_NAME, UserInfoMeta.LOGIN_PASSWORD_COLUMN_NAME, this));
+        this.put(UserInfoMeta.GENDER_FIELD_NAME, new UpdateDepict(UserInfoMeta.GENDER_FIELD_NAME, UserInfoMeta.GENDER_COLUMN_NAME, this));
+        this.put(UserInfoMeta.EMAIL_FIELD_NAME, new UpdateDepict(UserInfoMeta.EMAIL_FIELD_NAME, UserInfoMeta.EMAIL_COLUMN_NAME, this));
+        this.put(UserInfoMeta.NATIONAL_IDENTIFIER_FIELD_NAME, new UpdateDepict(UserInfoMeta.NATIONAL_IDENTIFIER_FIELD_NAME, UserInfoMeta.NATIONAL_IDENTIFIER_COLUMN_NAME, this));
+        this.put(UserInfoMeta.CELL_PHONE_FIELD_NAME, new UpdateDepict(UserInfoMeta.CELL_PHONE_FIELD_NAME, UserInfoMeta.CELL_PHONE_COLUMN_NAME, this));
+        this.put(UserInfoMeta.PEOPLE_TYPE_FIELD_NAME, new UpdateDepict(UserInfoMeta.PEOPLE_TYPE_FIELD_NAME, UserInfoMeta.PEOPLE_TYPE_COLUMN_NAME, this));
+        this.put(UserInfoMeta.LAST_LOGIN_TIME_FIELD_NAME, new UpdateDepict(UserInfoMeta.LAST_LOGIN_TIME_FIELD_NAME, UserInfoMeta.LAST_LOGIN_TIME_COLUMN_NAME, this));
+        this.put(UserInfoMeta.LAST_LOGIN_IP_FIELD_NAME, new UpdateDepict(UserInfoMeta.LAST_LOGIN_IP_FIELD_NAME, UserInfoMeta.LAST_LOGIN_IP_COLUMN_NAME, this));
     }
 
     /**
